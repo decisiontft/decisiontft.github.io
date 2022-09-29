@@ -7,18 +7,34 @@
     <title>basic
     </title>
     <style>
+* {
+  box-sizing: border-box;
+}
 /*input text style*/
 #text-style{
     border-top: transparent;
     border-left: transparent;
     border-right: transparent;
     opacity: 50%;
-}
+    outline: none;
+  }
+  #text-style1{
+    height: 1%;
+    margin-top:0;
+    padding:0;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    opacity: 50%;
+    outline: none;
+  }
+
+
 
 /* Browse file Button  */
 #browse-button{
     position: relative;
-    margin-left: 30%;
+    margin-left: 20%;
     font-family: calibri;
     width: 120px;
     padding: 10px;
@@ -31,17 +47,24 @@
     color: white;
 }
 
-
+input[type=checkbox]{
+    justify-items: auto ;
+    border: 0%;
+    width: 3%;
+    height: 10%;
+    
+}
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  border: 1px solid #fff;
+  border-bottom: 1px solid #ccc;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
   background-color: inherit;
+  width: 15%;
   float: left;
   border: none;
   outline: none;
@@ -69,77 +92,131 @@
   border: 1px solid #ccc;
   border-top: none;
 }
-.checkbox-round {
-    width: 1.3em;
-    height: 1.3em;
-    background-color: white;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
-    cursor: pointer;
+.check123 {
+            display: block;
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            font-size: 25px;
+        }
+        /* Hide the default radio button */
+        
+        .check123 input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        /* custom radio button */
+        
+        .check {
+            position: absolute;
+            margin-left: 1%;
+            top: 0%;
+            left: 0%;
+            height: 50%;
+            width: 1%;
+            background-color: #ffff;
+            border-radius: 50%;
+        }
+        
+        .check123:hover input~.check {
+            background-color: gray;
+        }
+        
+        .check123 input:checked~.check {
+            background-color: #fff;
+            padding: 0.2%;
+            border: 2px solid rgb(97, 97, 247);
+        }
+        
+        .check:after {
+            content: "";
+            position: relative;
+            display: none;
+        }
+        
+        .check123 input:checked~.check:after {
+            display: block;
+        }
+        
+        .check123 .check:after {
+            position: relative center;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #ff11a8;
+        }
+        .footer {
+          border-top: 2px solid rgb(198, 198, 198);
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: rgb(255, 255, 255);
+   color: grey;
+   text-align: center;
+}
+@media(max-width:1200px) {
+  html {
+      font-size: 50%;
+  }
 }
 
-.checkbox-round:checked {
-    background-color: rgb(237, 81, 129);
-    border: blue !important;
-    content: '✔' solid white;
-    
-}
-.round {
-  position: relative;
+@media(max-width:991px) {
+  header {
+      padding: 2rem;
+  }
 }
 
-.round label {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-  height: 28px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 28px;
+@media(max-width:768px) {
+  #menu {
+      display: initial;
+  }
+  header .navbar {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      background-color: rgb(255, 178, 178);
+      border-top: .1rem solid rgba(245, 165, 165, 0.2);
+      padding: 1rem 2rem;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  header .navbar a {
+      display: block;
+      border-radius: .5rem;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      background: #222;
+  }
 }
 
-.round label:after {
-  border: 2px solid #fff;
-  border-top: none;
-  border-right: none;
-  content: "";
-  height: 6px;
-  left: 7px;
-  opacity: 0;
-  position: absolute;
-  top: 8px;
-  transform: rotate(-45deg);
-  width: 12px;
+@media(max-width: 450px) {
+  html {
+      font-size: 55%;
+  }
 }
-
-.round input[type="checkbox"] {
-  visibility: hidden;
+::placeholder {
+  color: rgb(1, 1, 1);
+  opacity: 100%;
+  font-size: large;
 }
-
-.round input[type="checkbox"]:checked + label {
-  background-color: #66bb6a;
-  border-color: #66bb6a;
-}
-
-.round input[type="checkbox"]:checked + label:after {
-  opacity: 1;
+input[type=radio] {
+    justify-items: auto ;
+    border: 0%;
+    width: 2%;
+    height: 1.5em;
 }
     </style>
     
 </head>
 <body style="font-family: Roboto, sans-serif;">
 
-<div style="background-color: black;">    
-<h2 style="color: White;">My Settings</h2>
+<div style="background-color: black;border:1px solid black;">    
+<h2 style="color: White; ">My Settings</h2>
 </div>
-
-<div class="tab">
+<div class="tab" style="margin: 0;">
     <button class="tablinks" onclick="openCity(event, 'General')">General</button>
     <button class="tablinks" onclick="openCity(event, 'Settings')">Settings</button>
     <button class="tablinks" onclick="openCity(event, 'Profile')">Profile</button>
@@ -156,24 +233,25 @@
             <input id="text-style"  style="width: 95%;"  type="email"></input>
         </div>
         <div style="width: 50%;">
-            <b><h4>Company</h4></b>
-            <h5 style="opacity: 80%;">MSI</h5>    
+            <div style="font-size: medium;margin-bottom: 0.5%;"><b>Company</b></div>
+                <div><div style="opacity: 80%;font-size: large;margin-top: 0;margin-bottom:10% ;">MSI</div></div>   
+        </div><br>
+        <div style="width: 50%;">
+            <div style="font-size: medium;margin-bottom: 0.5%;"><b>Work Group Name</b></div>
+                <div><div style="opacity: 80%;font-size: large;margin-top: 0;padding: 0;">Optevo</div></div>    
         </div>
     </div>
     <div style="display: flex;">
         <div style="width: 50%;">
             <h4 style="opacity: 50%;">Time-Zone*</h4>
-            <select name="cars" id="cars" style="width: 96%; border-top: transparent;border-left: transparent;border-right: transparent; border-bottom: 2px solid rgb(187, 187, 187);">
+            <select name="cars" id="cars" style="width: 96%; border-top: transparent;border-left: transparent;border-right: transparent; border-bottom: 2px solid rgb(187, 187, 187); outline: none;">
                 <option value="volvo"></option>
                 <option value="saab">Time-Zone1</option>
                 <option value="opel">Time-Zone2</option>
                 <option value="audi">Time-Zone3</option>
               </select>
         </div>
-        <div style="width: 50%;">
-            <b><h4>Work Group Name</h4></b>
-            <h5 style="opacity: 80%;">Optevo</h5>    
-        </div>
+        
     </div>
     <div style="display: flex;">
         <div style="width:20%;">
@@ -217,57 +295,75 @@
         <h4 style="opacity: 50%;">Country</h4>
         <input id="text-style" style="width: 95%;" type="text"></input>
     </div>
+    <div style="height: 5%;"></div>
 
     </form>
+    <br>
+    <br>
+    <br>
+
+    <div class="footer">
+      <p>Footer</p>
+    </div>
     </div>
 </div>
 
 <!-- settings tab -->
 <div id="Settings" class="tabcontent">
     <div>
-        <form>
-        <div style="display: flex;">
-            <div style="margin-top: 5%; width: 50%;">   
-                <input class="checkbox-round" type="checkbox">Send Email for detailed notifications</input><br>
-                <input class="checkbox-round" type="checkbox">Send Email for Work Pod Changes </input><br>
-                <input class="checkbox-round" type="checkbox">Send Email for Private Messages</input><br>
-                <input class="checkbox-round" type="checkbox">Send Daily Reminder Email</input>
+        <form style="font-size: large;">
+        <div style="display: flex; font-size: large;">
+            <div style="margin-top: 1%; width: 50%; font-size: large;">   
+                <div><input type="checkbox" style="margin-top: 1%;">Send Email for detailed notifications</input></div>
+                <div><input type="checkbox" style="margin-top: 1%;">Send Email for Work Pod Changes </input></div>
+                <div><input type="checkbox" style="margin-top: 1%;">Send Email for Private Messages</input></div>
+                <div><input type="checkbox" style="margin-top: 1%;">Send Daily Reminder Email</input></div>
             </div>
             <div>
-                <b><h4>Company</h4></b>
-                <b><h5 style="opacity: 80%;">MSI</h5></b>
-                <b><h4>Work Group Name</h4></b>
-                <b><h5 style="opacity: 80%;">Optevo</h5></b>   
+                <div style="font-size: medium;margin-bottom: 0.5%;"><b>Company</b></div>
+                <div><div style="opacity: 80%;font-size: large;margin-top: 0;margin-bottom:10% ;">MSI</div></div>
+                <div style="font-size: medium;margin-bottom: 0.5%;"><b>Work Group Name</b></div>
+                <div><div style="opacity: 80%;font-size: large;margin-top: 0;padding: 0;">Optevo</div></div>   
             </div>
         </div>
         <div style="display: flex;">
-            <div style="width: 100%;">
-                <h4 style="opacity: 40%;">Email Icon Label</h4>
+            <div style="width: 100%; ">
+                <div style="  padding:0%;margin-top:1%;">
+                    <div style="opacity: 40%; font-size: small;">Email Icon Label</div>
+                </div>
+                
+                <div style="width: 50%; margin-top: 0.2%;padding: 0%; ">   
+                    <input id="text-style1"  style="width: 95%;font-size: medium;"placeholder="Company Email"  type="email"></input>
+                </div>
                 <div>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-                
-                    <div>
+                &nbsp;
+                    <div style="font-size: large;">
+                        
                         
                         <label>
-                          <input class="checkbox-round" type="checkbox" class="radio" value="1" name="fooby[1][]" />Outlook</label>
-                        <label><br>
-                          <input class="checkbox-round" type="checkbox" class="radio" value="1" name="fooby[1][]" />Google</label>
-                        <label><br>     
-                          <input class="checkbox-round" type="checkbox" class="radio" value="1" name="fooby[1][]" />iCloud</label>
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Outlook</label>
+                        <label><br><br>
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Google</label>
+                        <label><br><br>     
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />iCloud</label>
                       </div>
                       
-                </div>  
+                    </div>  
                         
             </div>
             
         </div>
-        
+        &nbsp;
         <div style="display: flex;">
             <div style="width: 100%;">
-                <h4 style="opacity: 40%;">Calendar Icon Label</h4>
+                <div style="  padding:0%;margin:0%;">
+                    <div style="opacity: 40%; font-size: small;">Calendar Icon Label</div>
+                </div>
             
-            
-            
+                <div style="width: 50%; margin-top: 0.2%;padding: 0%; ">   
+                    <input id="text-style1"  style="width: 95%;font-size: large;"placeholder="Company Calendar"  type="email"></input>
+                </div>
             
             
             
@@ -276,15 +372,15 @@
 
 <div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    <div>
+&nbsp;
+    <div style="font-size: large;">
         
         <label>
-          <input class="checkbox-round" type="checkbox" class="radio" value="2" name="fooby[2][]" />Outlook</label>
-        <label><br>
-          <input class="checkbox-round" type="checkbox" class="radio" value="2" name="fooby[2][]" />Google</label>
-        <label><br>     
-          <input class="checkbox-round" type="checkbox" class="radio" value="2" name="fooby[2][]" />iCloud</label>
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />Outlook</label>
+        <label><br><br>
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />Google</label>
+        <label><br><br>     
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />iCloud</label>
       </div>
       
 </div>  
@@ -298,6 +394,10 @@
         </div>
         
         </form>
+        
+        </div>
+        <div class="footer">
+          <p>Footer</p>
         </div>
     </div>
     
@@ -305,12 +405,12 @@
 <!-- profile tab -->
 <div id="Profile" class="tabcontent">
   <div style="display: flex;">
-    <div >
-        <div style="opacity: 50%;">Bio Information</div><br><textarea rows="25" cols="70" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;"></textarea>
+    <div style="position: fixed; ">
+        <div style="opacity: 80%; margin-top: 2%; ">Bio Information</div><textarea rows="25" cols="70" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;margin-top: 1%;"></textarea>
     </div>
-    <div style="margin-left: 30%;">
-        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;" width="80%" height="80%"><br>
-        <h4 style="margin-left: 37%; opacity: 60%;">Bio Photo</h6>
+    <div style="margin-left: 70%;">
+        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;" width="70%" height="70%"><br>
+        <h4 style="margin-left: 23%; opacity: 60%;">Bio Photo</h6>
             <div>
             <form action="#type your action here" method="POST" enctype="multipart/form-data" name="myForm">
                 <div id="browse-button" onclick="getFile()">BROWSE</div>
@@ -323,12 +423,18 @@
             </div>
     </div>
   </div>
+  <div class="footer">
+    <p>Footer</p>
+  </div>
 </div>
 
 <!-- activity tab -->
 <div id="Activity" class="tabcontent">
   <h3>Joe Piekarz</h3>
   <p>Was added. Was made admin. Was made active. for Collaboration Card: 'Profile Sprint'</p>
+  <div class="footer">
+    <p>Footer</p>
+  </div>
 </div>
 
 <!-- js -->
