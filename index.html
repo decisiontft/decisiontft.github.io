@@ -580,13 +580,14 @@ input[type=radio] {
 <!-- profile tab -->
 <div id="Profile" class="tabcontent">
   <div style="display: flex;">
-    <div style="position: fixed; ">
-        <div style="opacity: 80%; margin-top: 2%; ">Bio Information</div><textarea rows="20" cols="70" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;margin-top: 1%;"></textarea>
+    <div style="width: 50%;">
+        <div style="opacity: 80%; margin-top: 2%; ">Bio Information</div><textarea rows="20%" cols="70%" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;margin-top: 1%;display; "></textarea>
     </div>
-    <div style="margin-left: 70%;">
-        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;" width="70%" height="70%"><br>
-        <h4 style="margin-left: 23%; opacity: 60%;">Bio Photo</h6>
-            <div>
+    <div style="width: 50%;">
+        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;margin-left: 17.5%;margin-right: 82.5%; " width="65%" height="65%"><br>
+        <div style="height:50%;margin-bottom: 0;">
+        <h4 style=" opacity: 60%;text-align: center;">Bio Photo</h6>
+            <div style="">
             <form action="#type your action here" method="POST" enctype="multipart/form-data" name="myForm">
                 <div id="browse-button" onclick="getFile()">BROWSE</div>
                     <!-- this is your file input tag, so i hide it!-->
@@ -596,6 +597,7 @@ input[type=radio] {
                     <!-- <input type="submit" value='submit' > -->
             </form>
             </div>
+          </div>
     </div>
   </div>
   <div class="footer">
