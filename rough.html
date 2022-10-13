@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>basic
     </title>
-    
     <style>
-
 
 
 
@@ -26,41 +24,24 @@
   
 }
 
+
 .dd-button {
-    display: flex;
+  font-size:medium;
+  display: flex;
   align-items:flex-end;
-
-margin-right: 0%;
-
-
+  margin-right: 0%;
   border: 1px solid gray;
   border-radius: 4px;
-  padding: 10px 30px 10px 20px;
-  background-color:blue;
+  padding: 10px 10px 10px 10px;
+  background-color:#4350B0;
   cursor: pointer;
   white-space: nowrap;
 }
 
-.dd-button:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(50%);
-  width: 0; 
-  height: 0; 
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid black;
 
-
-
-
-  
-}
 
 .dd-button:hover {
-  background-color: #eeeeee;
+  background-color: #4350B0;
 }
 
 
@@ -69,14 +50,15 @@ margin-right: 0%;
 }
 
 .dd-menu {
+  display: none;
   position: absolute;
-  top: 100%;
+ font-size: medium ;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 0;
   margin: 2px 0 0 0;
   box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
-  background-color: #ffffff;
+  background-color: #4350B0;
   list-style-type: none;
 }
 
@@ -84,9 +66,16 @@ margin-right: 0%;
   display: none;
 } 
 
-.dd-input:checked + .dd-menu {
-  display: block;
-} 
+
+
+
+.dd-menu{
+  display: none;
+  position:fixed;
+  right: 0;
+  bottom: 8%;
+
+}
 
 .dd-menu li {
   padding: 10px 20px;
@@ -95,31 +84,25 @@ margin-right: 0%;
 }
 
 .dd-menu li:hover {
-  background-color: blue;
+  background-color: #626aa8;
 }
 
-.dd-menu li a {
-  display: block;
-  margin: -10px -20px;
-  padding: 10px 20px;
-}
+
 
 .dd-menu li.divider{
+  display: none;
   padding: 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #4350B0;
 }
 
 
+.dd-button:hover .dd-menu{
+  display: block;
+}
 
 
-
-
-
-
-
-
-
-
+.dd-button:hover li{
+  display: block;}
 
 
 
@@ -160,11 +143,11 @@ margin-right: 0%;
 
 /* Browse file Button  */
 #browse-button{
-    position: relative;
-    margin-left: 20%;
+   
     font-family: calibri;
-    width: 120px;
-    padding: 10px;
+    font-size: large;
+    width: 18%;
+    padding: 1.25%;
     border-radius: 5px;
     border-radius: 5px;
     border: 1px dashed rgb(68, 0, 255);
@@ -179,9 +162,10 @@ input[type=checkbox]{
     border: 0%;
     width: 3%;
     height: 10%;
-    accent-color: red;
-    background-color: red;
+    accent-color: #ff11a8;
+    background-color: #ff11a8;
   border: 2px solid blue;
+  line-height: 1.6;
     
 }
 /* Style the tab */
@@ -193,6 +177,7 @@ input[type=checkbox]{
 
 /* Style the buttons inside the tab */
 .tab button {
+  color: grey;
   background-color: inherit;
   width: 15%;
   float: left;
@@ -212,7 +197,8 @@ input[type=checkbox]{
 /* Create an active/current tablink class */
 .tab button.active {
   background-color: #ccc;
-  border-bottom:3px solid blue;
+  color: black;
+  border-bottom:3px solid rgb(106, 106, 255);
 }
 
 /* Style the tab content */
@@ -222,67 +208,13 @@ input[type=checkbox]{
   border: 1px solid #ccc;
   border-top: none;
 }
-.check123 {
-            display: block;
-            position: relative;
-            padding-left: 40px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            font-size: 25px;
-        }
-        /* Hide the default radio button */
-        
-        .check123 input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-        /* custom radio button */
-        
-        .check {
-            position: absolute;
-            margin-left: 1%;
-            top: 0%;
-            left: 0%;
-            height: 50%;
-            width: 1%;
-            background-color: #ffff;
-            border-radius: 50%;
-        }
-        
-        .check123:hover input~.check {
-            background-color: gray;
-        }
-        
-        .check123 input:checked~.check {
-            background-color: #fff;
-            padding: 0.2%;
-            border: 2px solid rgb(97, 97, 247);
-        }
-        
-        .check:after {
-            content: "";
-            position: relative;
-            display: none;
-        }
-        
-        .check123 input:checked~.check:after {
-            display: block;
-        }
-        
-        .check123 .check:after {
-            position: relative center;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #ff11a8;
-        }
+
 .footer {
-          border-top: 2px solid rgb(198, 198, 198);
+  border-top: 2px solid rgb(198, 198, 198);
    position: fixed;
    left: 0;
    bottom: 0;
-    height: 7%;
+    height: 8.5%;
    width: 100%;
    background-color: rgb(255, 255, 255);
    color: grey;
@@ -322,10 +254,132 @@ input[type=checkbox]{
       background: #222;
   }
 }
+#setting-input input{
+  display: block;
+  margin-bottom: 1%;
+  font-size: x-large;
+  line-height: 1.6;
+}
 
+.company-input div{
+  display: block;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: large;
+}
 @media(max-width: 450px) {
   html {
       font-size: 55%;
+      margin: 0 0 0 0;
+  }
+
+  #ext-change{
+display: block;
+
+  }
+
+
+  #general-input-display{
+  display: block;
+}
+
+#general-input-display input{
+  margin-left: 0%;
+
+  display: inline-block;
+}
+
+#Settings{
+font-size:medium;
+
+}
+#setting-input input{
+  display: inline-block;
+  margin-bottom: 1%;
+  width: max-content;
+  padding: 1px 1px 1px 1px;
+
+}
+#setting-input{
+  margin-bottom: 15%;
+  display: block;
+}
+#setting-input div{
+  display: block;
+}
+
+  .tab button {
+  color: grey;
+  background-color: inherit;
+  width:max-content;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 3px 3px;
+  transition: 0.3s;
+  font-size:x-small;
+}
+
+.footer{
+
+  margin-bottom: 5px;
+  background-color: white;
+
+}
+.footer .dd-button{
+  height: 3%;
+}
+
+
+.company-ct{
+  font-size:smaller;
+  padding-top: 10px;
+ margin-top: 14px;
+padding: 4px 4px 4px 4px;
+margin-bottom: 6px;
+
+
+
+}
+
+
+
+
+
+input #text-style{
+display: block;
+
+}
+
+
+
+
+  #bio-info{
+    margin-top: 50%;
+
+    
+  }
+  #bio-info textarea{
+    width: 180%;
+    padding: 10px 10px 10px 10px;
+    border:2px solid black;
+    outline-style: outset;
+    height: 50%;
+  }
+  .profile-box{
+    display: inline-block;
+    margin-left: 17%;
+    position:absolute;
+  }
+b{
+  font-size: small;
+  padding: 4px 4px 4px 4px;
+
+  width: max-content;
+}
+  #browse-button{
+    width: max-content;
   }
 }
 ::placeholder {
@@ -334,27 +388,135 @@ input[type=checkbox]{
   font-size: large;
 }
 input[type=radio] {
+    scale: 0.9;
     justify-items: auto ;
     border: 0%;
     width: 2%;
     height: 1.5em;
-    accent-color: red;
-    background-color: red;
-  border: 2px solid blue;
+    accent-color: #ff11a8;
+    background-color: #ff11a8;
+    border: 2px solid blue;
 }
+input[type=radio]:checked{
+    scale: 0.9;
+    justify-items: auto ;
+    border: 0%;
+    width: 2%;
+    height: 1.5em;
+    accent-color: #ff11a8;
+    background-color: #ff11a8;
+    border: 2px solid blue;
+}
+body{
+  margin: 0;
+}
+.profile-box{
+  display: block;
+  text-align: center;
+
+}
+nav{
+  width: 100%;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   padding-top: 10px;
+   padding-bottom: 10px;
+   width: 100%;
+   background-color:  rgb(255, 255, 255);
+   color: rgb(0, 0, 0);
+   text-align: center;
+   margin: 0 0 0 0;
+}
+
+#general-input-display{
+  display: flex;
+}
+
+
+
+#Settings{
+font-size:medium;
+
+}
+#setting-input input{
+  display: inline-block;
+  width: max-content;
+  padding: 5px 5px 5px 5px;
+
+}
+#setting-input{
+  display: block;
+}
+#setting-input div{
+  display: block;
+}
+
+
+
+
+
+#ext-change{
+margin-left: 5% ;
+}
+
+
+
+
+
+
+
+#dropdown{
+  margin-bottom: 10%;
+  padding-bottom: 10px;
+}
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.arrow {
+  border: solid rgb(255, 254, 254);
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+
+
+
+.for-ph::-moz-placeholder{
+    color:black;
+    opacity:1
+}
+
+.for-ph:-ms-input-placeholder{
+    color:black
+}
+
+.for-ph::-webkit-input-placeholder{
+    color:black
+}
+
+
+
+
     </style>
     
 </head>
-<body style="font-family: Roboto, sans-serif;">
+<body style="font-family: Roboto;">
 
-<div style="background-color: black;border:1px solid black;">    
-<h2 style="color: White; ">My Settings</h2>
+<div class="nav" style="background-color: black;border:1px solid black;">    
+<h2 style="color: White;margin-left: 2%; ">My Settings</h2>
 </div>
 <div class="tab" style="margin: 0;">
-    <button class="tablinks" onclick="openCity(event, 'General')">General</button>
-    <button class="tablinks" onclick="openCity(event, 'Settings')">Settings</button>
-    <button class="tablinks" onclick="openCity(event, 'Profile')">Profile</button>
-    <button class="tablinks" onclick="openCity(event, 'Activity')">Activity</button>
+    <button class="tablinks active" onclick="openCity(event, 'General')"><b>General</b></button>
+    <button class="tablinks" onclick="openCity(event, 'Settings')"><b>Settings</b></button>
+    <button class="tablinks" onclick="openCity(event, 'Profile')"><b>Profile</b></button>
+    <button class="tablinks" onclick="openCity(event, 'Activity')"><b>Activity</b></button>
 </div>
 
 <!-- general tab -->
@@ -362,13 +524,13 @@ input[type=radio] {
     <div >
     <form>
     <div style="display: flex;">
-        <div style="width: 50%;">
+        <div style="width: 50%; ">
         <div style="height: 50%;">   
-            <h4 style="opacity: 50%;">Email*</h4>
+            <h4 style="opacity: 50%;font-size: small;">Email*</h4>
             <input id="text-style"  style="width: 95%;"  type="email"></input>
         </div>
-        <div style="height: 50%;">
-            <h4 style="opacity: 50%;">Time-Zone*</h4>
+        <div style="height: 50%;;">
+            <h4 style="opacity: 50%;font-size: small;">Time-Zone*</h4>
             <select name="cars" id="cars" style="width: 96%; border-top: transparent;border-left: transparent;border-right: transparent; border-bottom: 2px solid rgb(187, 187, 187); outline: none;">
                 <option value="volvo"></option>
                 <option value="saab">Time-Zone1</option>
@@ -377,104 +539,82 @@ input[type=radio] {
               </select>
         </div>
         </div>
-        <div style="width: 50%;">
-        <div style="width: 50%;">
-            <div style="font-size: medium;margin-bottom: 0.5%;"><b>Company</b></div>
-                <div><div style="opacity: 80%;font-size: large;margin-top: 0;margin-bottom:10% ;">MSI</div></div>  
-        </div>
-        <div style="width: 50%;">
-            <div style="font-size: medium;margin-bottom: 0.5%;"><b>Work Group Name</b></div>
-                <div><div style="opacity: 80%;font-size: large;margin-top: 0;padding: 0;">Optevo</div></div> 
-        </div>
-        </div>
+        <div>
+          <div style="font-size: large;margin-bottom: 0.5%;"><b>Company</b></div>
+          <div><div style="opacity: 80%;font-size: medium;margin-top: 0;margin-bottom:10% ;">MSI</div></div>
+          <div style="font-size: large;margin-bottom: 0.5%;"><b>Work Group Name</b></div>
+          <div><div style="opacity: 80%;font-size: medium;margin-top: 0;padding: 0;">Optevo</div></div>   
+      </div>
+          </div>
     </div>
     &nbsp;
     <div style="display: flex;">
         
         
     </div>
-    <div style="display: flex;">
+    <div id="general-input-display">
         <div style="width:20%;">
-            <h4 style="opacity: 50%;">Mobile Number*</h4>
+            <h4 style="opacity: 50%;font-size: small;">Mobile Number*</h4>
             <input id="text-style"  style="width: 95%;" type="tel"></input>
         </div>
         
         <div style="margin-left:7% ;">
-            <h4 style="opacity: 50%;">Telephone</h4>
+            <h4 style="opacity: 50%;font-size: small;">Telephone</h4>
             <input id="text-style" type="tel"></input>
         </div>
 
-        <div style="margin-left: 5% ;">
-            <h4 style="opacity: 50%;">Ext</h4>
+        <div id="ext-change" >
+            <h4 style="opacity: 50%;font-size: small;">Ext</h4>
             <input id="text-style" type="number"></input>
         </div>
         <div style="width: 40.286%;">
       </div>
     </div>
     <div>
-        <h4 style="opacity: 50%;">Address Line 1*</h4>
+        <h4 style="opacity: 50%;font-size: small;">Address Line 1*</h4>
         <input id="text-style" style="width: 95%;"  type="text"></input>
     </div>
     <div>
-        <h4 style="opacity: 50%;">Address Line 2</h4>
+        <h4 style="opacity: 50%;font-size: small;">Address Line 2</h4>
         <input id="text-style" style="width: 95%;"  type="text"></input>
     </div>
     <div>
-        <h4 style="opacity: 50%;">City*</h4>
+        <h4 style="opacity: 50%;font-size: small;">City*</h4>
         <input id="text-style" style="width: 95%;"  type="text"></input>
     </div>
     <div>
-        <h4 style="opacity: 50%;">State*</h4>
+        <h4 style="opacity: 50%;font-size: small;">State*</h4>
         <input id="text-style" style="width: 95%;"  type="text"></input>
     </div>
     <div>
-        <h4 style="opacity: 50%;">Postal Code*</h4>
+        <h4 style="opacity: 50%;font-size: small;">Postal Code*</h4>
         <input id="text-style" style="width: 95%;"  type="text"></input>
     </div>
     <div>
-        <h4 style="opacity: 50%;">Country</h4>
+        <h4 style="opacity: 50%;font-size: small;">Country</h4>
         <input id="text-style" style="width: 95%;" type="text"></input>
     </div>
-    <div style="height: 5%;"></div>
+    <div style="height: 12%;"></div>
 
     </form>
     <br>
     <br>
     <br>
 
-    <div class="footer">
-      
-        <label class="dropdown">
-
-            <div class="dd-button">
-              Save
-            </div>
-          
-            <input type="checkbox" class="dd-input" id="test">
-          
-            <ul class="dd-menu">
-              <li>Save As PDF</li>
-              <li>Share</li>
-              <li>Mail</li>
-              <li class="divider"></li>
-            
-            </ul>
-            
-          </label>
-    </div>
+    
     </div>
 </div>
 
 <!-- settings tab -->
 <div id="Settings" class="tabcontent">
     <div>
-        <form style="font-size: large;">
-        <div style="display: flex; font-size: large;">
-            <div style="margin-top: 1%; width: 50%; font-size: large;">   
-                <div><input type="checkbox" style="margin-top: 1%;">Send Email for detailed notifications</input></div>
-                <div><input type="checkbox" style="margin-top: 1%;">Send Email for Work Pod Changes </input></div>
-                <div><input type="checkbox" style="margin-top: 1%;">Send Email for Private Messages</input></div>
-                <div><input type="checkbox" style="margin-top: 1%;">Send Daily Reminder Email</input></div>
+        <form>
+        <div style="display: flex; ">
+            <div id="setting-input" style="margin-top: 1%; width: 50%; ">   
+               <div><input type="checkbox" style="margin-top: 0.2%;scale: 1.5;">&nbsp;  Send Email for detailed notifications</input> </div>
+               <div><input type="checkbox" style="margin-top: 0.2%;scale: 1.5;">&nbsp;  Send Email for Work Pod Changes </input> </div>
+               <div><input type="checkbox" style="margin-top: 0.2%;scale: 1.5;">&nbsp;  Send Email for Private Messages </input></div>
+               <div><input type="checkbox" style="margin-top: 0.2%;scale: 1.5;">&nbsp;  Send Daily Reminder Email</input> </div>
             </div>
             <div>
                 <div style="font-size: medium;margin-bottom: 0.5%;"><b>Company</b></div>
@@ -490,20 +630,20 @@ input[type=radio] {
                 </div>
                 
                 <div style="width: 50%; margin-top: 0.2%;padding: 0%; ">   
-                    <input id="text-style1"  style="width: 95%;font-size: medium;"placeholder="Company Email"  type="email"></input>
+                    <input id="text-style1"  style="width: 95%;font-size: medium;;"placeholder="Company Email"  type="email"></input>
                 </div>
                 <div>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                 &nbsp;
-                    <div style="font-size: large;">
+                    <div class="company-input" style="font-size: medium;">
                         
                         
-                        <label>
-                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Outlook</label>
-                        <label><br><br>
-                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Google</label>
-                        <label><br><br>     
-                          <input type="radio" class="radio" value="1" name="fooby[1][]" />iCloud</label>
+                        <div >
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Outlook</div>
+                        <div>
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />Google</div>
+                        <div>     
+                          <input type="radio" class="radio" value="1" name="fooby[1][]" />iCloud</div>
                       </div>
                       
                     </div>  
@@ -530,14 +670,14 @@ input[type=radio] {
 <div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 &nbsp;
-    <div style="font-size: large;">
+    <div class="company-input"style="font-size: medium;">
         
-        <label>
-          <input type="radio" class="radio" value="2" name="fooby[2][]" />Outlook</label>
-        <label><br><br>
-          <input type="radio" class="radio" value="2" name="fooby[2][]" />Google</label>
-        <label><br><br>     
-          <input type="radio" class="radio" value="2" name="fooby[2][]" />iCloud</label>
+        <div>
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />Outlook</div>
+        <div>
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />Google</div>
+        <div>     
+          <input type="radio" class="radio" value="2" name="fooby[2][]" />iCloud</div>
       </div>
       
 </div>  
@@ -551,28 +691,10 @@ input[type=radio] {
         </div>
         
         </form>
+        <br><br><br><br><br>
         
         </div>
-        <div class="footer">
-      
-          <label class="dropdown">
-  
-              <div class="dd-button">
-                Save
-              </div>
-            
-              <input type="checkbox" class="dd-input" id="test">
-            
-              <ul class="dd-menu">
-                <li>Save As PDF</li>
-                <li>Share</li>
-                <li>Mail</li>
-                <li class="divider"></li>
-              
-              </ul>
-              
-            </label>
-      </div>
+        
       </div>
     </div>
     
@@ -580,12 +702,14 @@ input[type=radio] {
 <!-- profile tab -->
 <div id="Profile" class="tabcontent">
   <div style="display: flex;">
-    <div style="position: fixed; ">
-        <div style="opacity: 80%; margin-top: 2%; ">Bio Information</div><textarea rows="20" cols="70" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;margin-top: 1%;"></textarea>
+    <div  id="bio-info"  style="width: 50%;">
+        <div style="opacity: 80%; margin-top: 2%;font-size: large; padding: 10px 10px 10px 10px;">Bio Information</div><textarea rows="20%" cols="70%" style="border-radius: 2%; border-top: transparent;border-left: transparent;border-right: transparent;margin-top: 1%;"></textarea>
     </div>
-    <div style="margin-left: 70%;">
-        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;" width="70%" height="70%"><br>
-        <h4 style="margin-left: 23%; opacity: 60%;">Bio Photo</h6>
+    <div class="profile-box" style="width: 50%;">
+      <center>
+        <img src="https://www2.deloitte.com/content/dam/Deloitte/nl/Images/promo_images/deloitte-nl-cm-digital-human-promo.jpg" alt="photo" style="border-radius: 50%;" width="45%"><br>
+        <div style="height:50%">
+        <h4 style=" opacity: 60%;font-size: large;">Bio Photo</h4>
             <div>
             <form action="#type your action here" method="POST" enctype="multipart/form-data" name="myForm">
                 <div id="browse-button" onclick="getFile()">BROWSE</div>
@@ -596,55 +720,19 @@ input[type=radio] {
                     <!-- <input type="submit" value='submit' > -->
             </form>
             </div>
+          </div>
+        </center>
     </div>
   </div>
-  <div class="footer">
-      
-    <label class="dropdown">
-
-        <div class="dd-button">
-          Save
-        </div>
-      
-        <input type="checkbox" class="dd-input" id="test">
-      
-        <ul class="dd-menu">
-          <li>Save As PDF</li>
-          <li>Share</li>
-          <li>Mail</li>
-          <li class="divider"></li>
-        
-        </ul>
-        
-      </label>
-</div>
+  
 </div>
 </div>
 
 <!-- activity tab -->
-<div id="Activity" class="tabcontent">
+<div id="Activity" class="tabcontent" style="font-size: large;">
   <h3>Joe Piekarz</h3>
   <p>Was added. Was made admin. Was made active. for Collaboration Card: 'Profile Sprint'</p>
-  <div class="footer">
-      
-    <label class="dropdown">
-
-        <div class="dd-button">
-          Save
-        </div>
-      
-        <input type="checkbox" class="dd-input" id="test">
-      
-        <ul class="dd-menu">
-          <li>Save As PDF</li>
-          <li>Share</li>
-          <li>Mail</li>
-          <li class="divider"></li>
-        
-        </ul>
-        
-      </label>
-</div>
+  
 </div>
 </div>
 
@@ -694,5 +782,52 @@ $("input:checkbox").on('click', function() {
 });
 </script>
 
+<div class="footer">
+  
+
+  <div class="dropdown">
+
+    <ul id="dd-menu" class="dd-menu">
+      <li>Save As PDF</li>
+      <li>Share</li>
+      <li>Mail</li>
+      <li class="divider"></li>
+    
+    </ul>
+    <div class="dd-button">
+      Save   &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <span  id="d"  class="arrow up"></span> </div>
+  
+  
+    
+  </div>
+
+
+
+
+
+</div>
+
+
+
+
+      
+  <script>
+    document.getElementById("d").addEventListener("click",toggleDropdown);
+    var toggle = false;
+    function toggleDropdown(){
+      if(!toggle){
+        document.getElementById("dd-menu").style.display="block";
+        toggle=true;
+      }
+      else{
+        document.getElementById("dd-menu").style.display="none";
+        toggle=false;
+
+      }
+    }
+
+
+
+  </script>
 </body>
 </html>
