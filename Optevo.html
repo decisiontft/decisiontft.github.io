@@ -1,40 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style>
-      .button {
-        transition-duration: 0.4s;
-        background-color: rgb(43, 43, 226);
-        color: white;
-        border: 1px solid rgb(43, 43, 226);
-        border-radius: 12px;
-        font-size: medium;
-        padding: 10px;
-      }
-      .button:hover {
-        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
-          0 17px 50px 0 rgba(0, 0, 0, 0.19);
-      }
-    </style>
-  </head>
-  <body>
-    <a
-      href="/my-profile-dialog.component.html"
-      target="popup"
-      onclick="window.open('my-profile-dialog.component.html','name','width=800px,height=456px')"
-      ><button class="button">My Settings</button></a
-    >
-    <a href="/optevo-new-starter.webflow/index.html"
-      ><button class="button">New SignUp Page</button></a
-    >
-    <a href="/vision/index.html"
-      ><button class="button">ADA Compliance</button></a
-    >
-    <a href="/popup/popup.html"><button class="button">PopUps</button></a>
-    <a href="/optevo-new-starter.webflow/login-page.html"><button class="button">New Login Page</button></a>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .button {
+      transition-duration: 0.4s;
+      background-color: rgb(255, 255, 255);
+      color: rgb(1, 0, 0);
+      border: 1px solid rgb(255, 255, 255);
+      border-radius: 12px;
+      font-size: medium;
+      padding: 10px;
+      height: 100%;
+      width: 100%;
+    }
+
+    .button:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      background-color: rgb(246, 246, 246);
+    }
+
+    td {
+      padding: 0;
+
+      transition-duration: 0.4s;
+      background-color: rgb(255, 255, 255);
+      color: rgb(1, 0, 0);
+      border: 1px solid rgb(0, 0, 6);
+      border-radius: 12px;
+      font-size: medium;
+      padding: 10px;
+    }
+
+    td:hover {
+        padding: 0;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      background-color: rgb(246, 246, 246);
+    }
+
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td> <a href="/my-profile-dialog.component.html" target="popup"
+        onclick="window.open('my-profile-dialog.component.html','name','width=800px,height=456px')"><button
+          class="button">My Settings</button></a></td>
+      <td><a href="/optevo-new-starter.webflow/index.html"><button class="button">New SignUp Page</button></a></td>
+    </tr>
+    <tr>
+      <td><a href="/vision/index.html"><button class="button">ADA Compliance</button></a></td>
+      <td><a href="/popup/popup.html"><button class="button">PopUps</button></a></td>
+    </tr>
+    <tr>
+      <td><a href="/optevo-new-starter.webflow/login-page.html"><button class="button">New Login Page</button></a></td>
+      <td><a href="/emails/index.html"><button class="button">HTML Email</button></a></td>
+    </tr>
+  </table>
+ 
+  
+  
+  
+  
+</body>
+
 </html>
