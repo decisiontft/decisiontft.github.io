@@ -919,6 +919,24 @@
             left: -70%;
             margin-left: -80px;
         }
+
+        .popup .popuptextreccom12 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            visibility: hidden;
+            width: 200px;
+            background-color: #87c065;
+            font-size: 12px;
+            color: rgb(255, 255, 255);
+            text-align: left;
+            border-radius: 6px;
+            padding: 13px 14px;
+            position: absolute;
+            z-index: 1;
+            top: -120px;
+            left: -70%;
+            margin-left: -80px;
+        }
+
         .popup .popuptextreccom2 {
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             visibility: hidden;
@@ -935,6 +953,7 @@
             left: -70%;
             margin-left: -80px;
         }
+
         .popup .popuptextreccom3 {
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
             visibility: hidden;
@@ -1037,6 +1056,18 @@
             border-color: #87c065 transparent transparent transparent;
         }
 
+        .popup .popuptextreccom12::after {
+            content: "";
+            position: absolute;
+            top: -13%;
+            left: 65%;
+            transform: rotate(180deg);
+            margin-left: -5px;
+            border-width: 15px;
+            border-style: solid;
+            border-color: #87c065 transparent transparent transparent;
+        }
+
         .popup .popuptextreccom2::after {
             content: "";
             position: absolute;
@@ -1048,6 +1079,7 @@
             border-style: solid;
             border-color: #87c065 transparent transparent transparent;
         }
+
         .popup .popuptextreccom3::after {
             content: "";
             position: absolute;
@@ -1059,6 +1091,7 @@
             border-style: solid;
             border-color: #87c065 transparent transparent transparent;
         }
+
         /* Toggle this class - hide and show the popup */
         .popup .show {
             visibility: visible;
@@ -1340,15 +1373,15 @@
 
                         <div class="rec_com_con" style="margin-top: 3%;
                         margin-left: 4%; overflow-y: auto; " ng-init="msgs=[
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
-                        {time:'Today at 09:30 am',name:'JP Pineda',type:'Direct Message'},
+                        {time:'Today at 02:59 pm',name:'Jessica Harper',type:'Direct Message'},
+                        {time:'Today at 02:58 pm',name:'Jessica Harper',type:'Task: Choose Font Colors for Brand'},
+                        {time:'Yesterday at 10:38 am',name:'Jessica Harper',type:'Direct Message'},
+                        {time:'Apr 07 2023 at 08:43 am',name:'Chuck Elmore',type:'Direct Message'},
+                        {time:'Apr 07 2023 at 07:30 am',name:'Jessica Harper',type:'Direct Message'},
+                        {time:'Apr 06 2023 at 09:30 pm',name:'Chuck Elmore',type:'Direct Message'},
+                        {time:'Apr 06 2023 at 09:48 am',name:'Chuck Elmore',type:'Direct Message'},
+                        {time:'Apr 05 2023 at 09:30 am',name:'Jessica Harper',type:'Direct Message'},
+                        {time:'Apr 05 2023 at 09:30 am',name:'Jessica Harper',type:'Direct Message'},
                         
                         ]">
 
@@ -1411,7 +1444,7 @@
 
                         </div>
                         <div class="popup" style="margin-left: 50%; margin-top: 11%; font-size: large;"><span
-                                class="popuptextreccom" id="myPopup7"><span
+                                class="popuptextreccom12" id="myPopup7"><span
                                     style="font-size: 16px; font-weight: 600;">Recent Communication</span><br />
                                 <br>
                                 <span id="newpopupintext">
@@ -1440,15 +1473,15 @@
                                     Next >
                                 </button></span></div>
                     </div>
-                    <div class="rec_com11 ng-app="" ng-init=" acts=[ {time:'Mar 18 2023 at 01:02 am',name:'Khush
-                        Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
-                        Templates',workpod_name:'Novel HTML Initiatives'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
-                        Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
-                        Templates',workpod_name:'Novel HTML Initiatives'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
-                        Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
-                        Templates',workpod_name:'Novel HTML Initiatives'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
-                        Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
-                        Templates',workpod_name:'Novel HTML Initiatives'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
+                    <div class="rec_com11 ng-app="" ng-init=" acts=[ {time:'Mar 18 2023 at 01:02 am',name:'Jessica
+                        Harper',task:'marked a Task Paused',taskunit1:'File : ',taskunit2:' Choose Font Colors for
+                        Brand',workpod_name:'Website Design - Thrive Inc.'}, {time:'Mar 18 2023 at 01:02
+                        am',name:'Jessica Harper',task:'downloaded File',taskunit1:'File : ',taskunit2:' Project
+                        Timeline.pptx',workpod_name:'Proposal A8993177P'}, {time:'Mar 18 2023 at 01:02 am',name:'Jessica
+                        Harper',task:'downloaded File',taskunit1:'File : ',taskunit2:' Agreement
+                        Contract.pdf',workpod_name:'Proposal A8993177P'}, {time:'Mar 18 2023 at 01:02 am',name:'Chuck
+                        Elmore',task:'as removed as a Pod Admin from',taskunit1:'File : ',taskunit2:' ',workpod_name:'
+                        Website Design - Thrive Inc.'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
                         Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
                         Templates',workpod_name:'Novel HTML Initiatives'}, {time:'Mar 18 2023 at 01:02 am',name:'Khush
                         Bhardwaj',task:'added File to Work Pod',taskunit1:'File : ',taskunit2:' HTML EmaiL
@@ -1496,7 +1529,7 @@
 
                         </div>
                         <div class="popup" style="margin-left: 50%; margin-top: 11%; font-size: large;"><span
-                                class="popuptextreccom" id="myPopup8"><span
+                                class="popuptextreccom12" id="myPopup8"><span
                                     style="font-size: 16px; font-weight: 600;">Recent Activity</span><br />
                                 <br>
                                 <span id="newpopupintext">
@@ -1633,10 +1666,10 @@
             <div>
                 <div style="display: flex; flex-wrap: wrap; justify-content:space-around; padding: 2%; " ng-app=""
                     ng-init="data=[
-                    {name:'Novel HTML Initiatives',last_updated:'Mar 18 2023.01:05 am',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'},
-                    {name:'Website Design - Thrive',last_updated:'Mar 18 2023.01:05 am',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'},
-                    {name:'KTCL - 93.3',last_updated:'Mar 18 2023.01:05 am',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'},
-                    {name:'Review Proposal - A99300',last_updated:'Mar 18 2023.01:05 am',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'}
+                    {name:'Website Design - Thrive Inc.',last_updated:'Today at 02:58 pm',last_read:'Today at 01:14 pm',status:'Open',read:'19',comments:'25',people:'4',attach:'7'},
+                    {name:'Website Design - Aero LLC',last_updated:'Yesterday at 01:58 pm',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'},
+                    {name:'KTCL - 93.3',last_updated:'Apr 27 2023.10:28 am',last_read:'Today at 02:52 pm',status:'Open',read:'10',comments:'19',people:'7',attach:'2'},
+                    {name:'Review Proposal - A99300',last_updated:'Apr 27 2023, 09:38 am',last_read:'2 days ago',status:'Open',read:'10',comments:'19',people:'7',attach:'2'}
                     ]">
                     <div class="workpod1" ng-repeat="x in data">
                         <div class="workpod2">
@@ -1730,7 +1763,8 @@
                             <i class='fa fa-user'></i>
                             &nbsp;Number of People in the Work Group<br>
                             <i class='fa fa-file-text'></i>
-                            Number of Files</p>
+                            Number of Files
+                        </p>
 
                         <br>
                         <span style="font-size: 9px; font-weight: 300;">
@@ -1751,23 +1785,23 @@
                             Next >
                         </button>
                     </span></div>
-                    <div class="popup" style="left: -12vw; top: -247px; font-size: large;"><span class="popuptextreccom"
-                        id="myPopup11"><span style="font-size: 16px; font-weight: 600;">Work Pod Icons</span><br />
-                        <br>
-                        <span id="newpopupintext">
-                            <p><i class='fa fa-bell'></i>&nbsp;
-                                Icons within each Work Pod present the
-                                following information:<br>
-                                By default you will be notified of any
-                                changes within a Work Pod. If you don't
-                                want to recieve alerts you can turn them
-                                off by simply clicking the icon.<br>
-                                <i class='fa fa-flag'></i>&nbsp;
-If there is Unread Activity within the Work
-                                Pod this icon will display Red. Once you
-                                have seen all activity, this will display
-                                white.
-    
+            <div class="popup" style="left: -12vw; top: -247px; font-size: large;"><span class="popuptextreccom"
+                    id="myPopup11"><span style="font-size: 16px; font-weight: 600;">Work Pod Icons</span><br />
+                    <br>
+                    <span id="newpopupintext">
+                        <p><i class='fa fa-bell'></i>&nbsp;
+                            Icons within each Work Pod present the
+                            following information:<br>
+                            By default you will be notified of any
+                            changes within a Work Pod. If you don't
+                            want to recieve alerts you can turn them
+                            off by simply clicking the icon.<br>
+                            <i class='fa fa-flag'></i>&nbsp;
+                            If there is Unread Activity within the Work
+                            Pod this icon will display Red. Once you
+                            have seen all activity, this will display
+                            white.
+
                             <br>
                             <span style="font-size: 9px; font-weight: 300;">
                                 Done? <u><a href="#" onclick="skip(); return false;">Click to skip tutorial</a></u>
@@ -1783,10 +1817,10 @@ If there is Unread Activity within the Work
                         font-weight: bold;
                         font-size: small;
                       " onclick="myFunction12()">
-    
+
                                 Next >
                             </button>
-                        </span></div>
+                    </span></div>
             <div class="Showmore">
 
                 <center>See All</center>
