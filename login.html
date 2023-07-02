@@ -123,7 +123,29 @@
       transition: all 1s;
     }
 
+    .submit-btn2 {
+      cursor: pointer;
+
+      border: none;
+      border-radius: 8px;
+
+      box-shadow: 2px 2px 7px #0ecb8c70;
+
+      background: #01a66f;
+      color: rgba(255, 255, 255, 0.8);
+
+      width: 120px;
+
+      transition: all 1s;
+    }
+
     .submit-btn:hover {
+      color: rgb(255, 255, 255);
+
+      box-shadow: none;
+    }
+
+    .submit-btn2:hover {
       color: rgb(255, 255, 255);
 
       box-shadow: none;
@@ -157,7 +179,10 @@
             <br>
             <input type="password" name="password" value="">
             <br><br>
-            <input type="submit" value="SUBMIT" class="submit-btn">
+            <div style="display: flex;">
+              <input type="submit" value="SUBMIT" class="submit-btn">&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="submit" value="WARDEN_DESK" class="submit-btn2">
+            </div>
           </form>
         </div>
       </div>
