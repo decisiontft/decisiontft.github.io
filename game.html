@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt</title>
+    <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+
+</head>
+<body>
+
+    <script type="module">
+        // Import Firebase SDK modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore,
+            collection,
+            onSnapshot,
+            addDoc,
+            deleteDoc,
+            doc,
+            query, 
+            where,
+            orderBy,
+            serverTimestamp,
+            getDoc,
+        updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js"; // Add this line for Firebase Storage
+
+
+
+        // Firebase configuration
+        const firebaseConfig = {
+                apiKey: "AIzaSyC28KQXttDmslLpqo0FAypdXl9xd6O4OHU",
+                authDomain: "treasure-f6884.firebaseapp.com",
+                projectId: "treasure-f6884",
+                storageBucket: "treasure-f6884.appspot.com",
+                messagingSenderId: "35821018887",
+                appId: "1:35821018887:web:1d34621d25b3d970d1efa2",
+                measurementId: "G-WXNW6F11Z0"
+                };
+
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+    
+        // Check if user is signed in when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if there is a signed-in user
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    // User is signed in, retrieve user data
+                    const userDocRef = doc(db, 'users', user.uid);
+    
+                    try {
+                        // Get the user document from Firestore
+                        const userDocSnapshot = await getDoc(userDocRef);
+    
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            console.log('User Data:', userData);
+                            // const userDataParagraph = document.getElementById('userData'); // Corrected typo: getElementById instead of getElementByid
+                            // Update the content of the <p> tag with user data
+                                // document.getElementById('userName').textContent = `Name: ${userData.name}`;
+                               var user_id = user.id;
+                               var uid = userData.email;
+                               var active = userData.active;
+                               var first_visit = userData.first_visit;
+                               
+                            //    var user_name = userData.name;
+                               console.log(uid);
+                               if(isNaN(userData.active)){userData.active = true}
+                               if(userData.active == false){window.location.href="finish.html";}
+                               document.getElementById('active').textContent = ` active: ${userData.active}`;
+                               if(first_visit == true){
+                                        var question = "post a story of Ambiora'24 paper hand-band on instagram, tag Ambiora'24 official account and upload screenshot";
+                                        var question_number = 0;
+                                    }
+
+                                                            // Function to generate a random question
+                                function generateRandomQuestion(questions) {
+                                    // Get a random index within the range of the questions array length
+                                    const randomIndex = Math.floor(Math.random() * questions.length);
+
+                                    // Retrieve the question object at the random index
+                                    const randomQuestion = questions[randomIndex];
+                                    if(first_visit == true){
+                                    randomQuestion.question = question;
+                                    randomQuestion.question_number = question_number;
+                                    first_visit = false;
+                                    }
+                                    else{
+                                        question = randomQuestion.question;
+                                        question_number = randomQuestion.question_number;
+                                    }
+                                    // Display the random question on the page
+                                    const questionTextElement = document.getElementById('question-text');
+                                    questionTextElement.textContent = randomQuestion.question;
+                                    
+                                    // Remove the displayed question from the array to avoid repetition
+                                    questions.splice(randomIndex, 1);
+
+                                    // Disable button if no more questions available
+                                    if (questions.length === 0) {
+                                        document.getElementById('generate-button').disabled = true;
+                                    }
+                                }
+
+                                // Function to fetch questions from data.json
+                                function fetchQuestions() {
+                                    fetch('data.json')
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            // Once data is fetched, generate random question
+                                            generateRandomQuestion(data);
+                                        })
+                                        .catch(error => {
+                                            console.error('Error fetching data:', error);
+                                        });
+                                }
+
+                                // Add event listener to the button to fetch questions and generate a random question
+                                document.getElementById('generate-button').addEventListener('click', fetchQuestions);
+
+
+                                // adding documents
+                                const addTextForm = document.querySelector('.text')
+                                const colref_text = collection(db,'text_response')
+                                addTextForm.addEventListener('submit', (e) => {
+                                    e.preventDefault()
+                                    addDoc(colref_text, {
+                                        task: question,
+                                        task_id: question_number,
+                                        task_response: addTextForm.text_response.value,
+                                        uid: user.uid,
+                                        createdAt: serverTimestamp()
+                                    })
+                                    .then(()=>{
+                                        addTextForm.reset();
+                                        fetchQuestions();
+                                    })
+                                })
+
+
+
+
+
+                        } else {
+                            console.log('User document does not exist.');
+                        }
+                    } catch (error) {
+                        console.error('Error getting user document:', error);
+                    }
+                } else {
+                    console.log('No user signed in.');
+                    window.location.href="index.html";
+                }
+            });
+    
+            // Add logout button event listener
+            const logoutButton = document.querySelector('.logoutButton');
+            logoutButton.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    // Sign-out successful.
+                    console.log('User signed out successfully.');
+                    window.location.href = 'index.html'; // Redirect to sign-in page after logout
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+
+
+
+
+
+        });
+    </script>
+
+
+
+    <button class="logoutButton">Log Out</button>
+    <p id="active"></p>
+     <div id="question-container">
+        <h2>Random Question Generator</h2>
+        <p id="question-text">Click the button to generate a random question.</p>
+        <button id="generate-button">Generate Question</button>
+    </div>
+     <form class="text">
+        <label for="author">Task Response:</label>
+        <input type="text" name="text_response" required>
+        <button type="submit">Submit Task</button>
+    </form>
+    
+</body>
+</html>

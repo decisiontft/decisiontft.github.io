@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form class="signupForm">
+        <label for="signupName">Name: </label>
+        <input type="text" name="name" id="signupName">
+        <label for="signupEmail">Email: </label>
+        <input type="email" name="email" id="signupEmail">
+        <label for="signupPassword">Password: </label>
+        <input type="password" name="password" id="signupPassword">
+        <button type="submit">Signup</button><br><span><a href="/index.html">Already have account?</a></span>
+    </form>
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    <!-- Other Firebase SDKs -->
+    
+    <!-- Your Firebase configuration -->
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+        import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp,
+        deleteDoc,
+        doc,
+        where,
+        getDoc,
+        setDoc
+        
+        } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC28KQXttDmslLpqo0FAypdXl9xd6O4OHU",
+            authDomain: "treasure-f6884.firebaseapp.com",
+            projectId: "treasure-f6884",
+            storageBucket: "treasure-f6884.appspot.com",
+            messagingSenderId: "35821018887",
+            appId: "1:35821018887:web:1d34621d25b3d970d1efa2",
+            measurementId: "G-WXNW6F11Z0"
+            };        
+        
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+        const db = getFirestore();
+        const colref = collection(db, 'users');
+        const q = query(colref, orderBy("createdAt"));
+        document.addEventListener('DOMContentLoaded', () => {
+    const signupForm = document.querySelector('.signupForm');
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = signupForm.querySelector('#signupEmail').value;
+        const password = signupForm.querySelector('#signupPassword').value;
+        
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((cred) => {
+            console.log('User Created ');
+
+            const docRef = doc(colref, cred.user.uid); 
+            setDoc(docRef, {
+                name: signupForm.name.value,
+                email: signupForm.email.value,
+                active: true,
+                createdAt: serverTimestamp(),
+                first_visit: true
+            })
+            .then(()=>{
+                signupForm.reset()
+                window.location.href = 'game.html';
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+
+        })
+        .catch((err) => {
+            console.log(err.message);
+        });
+    });
+
+});
+
+</script>
+</body>
+</html>

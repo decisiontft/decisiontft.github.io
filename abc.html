@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>abc.html</title>
+</head>
+
+<body>
+    
+
+    <script>
+        let uemail = "";
+        // Function to get URL parameters
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        // Get UID and name from URL parameters
+        var uid = getParameterByName('uid');
+
+        // Display UID and name on the page
+        document.write('<p>UID: ' + uid + '</p>');
+
+        console.log(uid);
+    </script>
+
+
+
+
+    <h1>Random Task Viewer</h1>
+    <p id="taskDisplay"></p>
+    <!-- <button onclick="showRandomTask()">Show Another Task</button> -->
+
+    <script>
+        let lastTask = 0;
+        // Function to fetch JSON data from data.json
+        async function fetchData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            return data.tasks;
+        }
+
+        // Shuffle function to shuffle the tasks
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        let tasks = [];
+        let shuffledTasks = [];
+        let currentTaskIndex = 0;
+
+        // Function to show a random task
+        async function showRandomTask() {
+            if (currentTaskIndex === 0 || currentTaskIndex === tasks.length) {
+                // First time loading or after all tasks have been shown, fetch new tasks
+                tasks = await fetchData();
+                shuffledTasks = [...tasks];
+                shuffle(shuffledTasks);
+                currentTaskIndex = 0;
+            }
+
+            // Display the task
+            const taskDisplay = document.getElementById('taskDisplay');
+            taskDisplay.textContent = shuffledTasks[currentTaskIndex];
+            lastTask = shuffledTasks[currentTaskIndex];
+            // Increment the index for the next task
+            currentTaskIndex += 1;
+        }
+
+        // Initial load
+        showRandomTask();
+    </script>
+
+
+
+
+
+    <br><br>
+
+    <br><br><br>
+    <input type="file" accept="image/*">
+    <img src="" alt="">
+    <br><br>
+    <button onclick="submitForm()">
+        submit Image
+    </button>
+
+
+    <br><br><br>
+    <div id="statusdiv"></div>
+    <script>
+        let statusdiv = document.getElementById('statusdiv');
+
+        let url = "https://script.google.com/macros/s/AKfycbxWwhGd8m0KSlsiEaxz3r0PCQkSk_Z1ZSE4NqjmK_CTJqHhiE2UQPOhT9UHE_ehJzCtFA/exec";
+        let file = document.querySelector("input");
+        let img = document.querySelector("img");
+        let res = "";
+        let spt = "";
+        let obj = {};
+        let t = new Date().toLocaleTimeString();
+        let fr = "";
+        file.addEventListener('change', () => {
+            t = new Date().toLocaleTimeString();
+            fr = new FileReader();
+            console.log(uid);
+            fr.addEventListener('loadend', () => {
+                res = fr.result;
+                img.src = res;
+                spt = res.split("base64,")[1];
+                // console.log(spt);
+                obj = {
+                    base64: spt,
+                    type: file.files[0].type,
+                    // name: file.files[0].name
+                    name: uid,
+                    time: t,
+                    tasktodisplay: lastTask,
+                    texttodisplay: ""
+                }
+                console.log(obj);
+                // fetch(url, {
+                //     method: "POST",
+                //     body: JSON.stringify(obj)
+                // }).then(r => r.text()).then(data => console.log(data))
+            })
+            fr.readAsDataURL(file.files[0]);
+        })
+
+
+
+        function submitForm() {
+            statusdiv.innerHTML = "UPLOADING...";
+            t = new Date().toLocaleTimeString();
+            fr = new FileReader();
+            console.log(uid);
+            fr.addEventListener('loadend', () => {
+                res = fr.result;
+                img.src = res;
+                spt = res.split("base64,")[1];
+                // console.log(spt);
+                obj = {
+                    base64: spt,
+                    type: file.files[0].type,
+                    // name: file.files[0].name
+                    name: uid,
+                    time: t,
+                    tasktodisplay: lastTask
+                }
+                console.log(obj);
+                fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify(obj)
+                }).then(r => r.text()).then(
+                    data => statusdiv.innerHTML = data,
+                     img.src = "",
+                     
+                    )
+            })
+            fr.readAsDataURL(file.files[0]);
+            img.src = "";
+            showRandomTask();
+        }
+
+    </script>
+
+
+
+
+
+
+    <input type="text" name="textans" id="textans">
+    <button onclick="submitText()">
+        submit text
+    </button>
+    <script>
+        function showText() {
+
+            let textanswer = document.getElementById('textans');
+            let textans = textanswer.value;
+            console.log(textans);
+        }
+    </script>
+    <script>
+        function submitText() {
+            statusdiv.innerHTML = "UPLOADING...";
+            t = new Date().toLocaleTimeString();
+            console.log(uid);
+            let textanswer = document.getElementById('textans');
+            let textans = textanswer.value;
+            console.log(textans);
+
+
+
+
+            obj = {
+                base64: "",
+                type: "",
+                // name: file.files[0].name
+                name: uid,
+                time: t,
+                tasktodisplay: lastTask,
+                texttodisplay: textans
+            }
+            console.log(obj);
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(obj)
+            }).then(r => r.text()).then(data => statusdiv.innerHTML = data)
+
+            showRandomTask();
+        }
+
+
+    </script>
+
+
+
+</body>
+
+</html>

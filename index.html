@@ -1,11 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-  <a href="kaushalkuwar5802@okaxis">Pay Here</a>
+
+    <form class="signinForm">
+        <!-- <label for="signinName">Name: </label>
+        <input type="text" name="name" id="signinName"> -->
+        <label for="signinEmail">Email: </label>
+        <input type="email" name="email" id="signinEmail">
+        <label for="signinPassword">Password: </label>
+        <input type="password" name="password" id="signinPassword">
+        <button type="submit">Signin</button><br>
+        <span><a href="/signup.html">Create an account</a></span>
+    </form>
+    
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+<!-- Other Firebase SDKs -->
+
+<!-- Your Firebase configuration -->
+
+   <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp,
+deleteDoc,
+doc,
+where,
+getDoc,
+setDoc
+
+} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyC28KQXttDmslLpqo0FAypdXl9xd6O4OHU",
+  authDomain: "treasure-f6884.firebaseapp.com",
+  projectId: "treasure-f6884",
+  storageBucket: "treasure-f6884.appspot.com",
+  messagingSenderId: "35821018887",
+  appId: "1:35821018887:web:1d34621d25b3d970d1efa2",
+  measurementId: "G-WXNW6F11Z0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+const db = getFirestore();
+const colref = collection(db, 'users');
+const q = query(colref, orderBy("createdAt"));
+
+// onSnapshot(q, (snapshot) => {
+//     let users = [];
+//     snapshot.docs.forEach((doc) => {
+//         users.push({...doc.data(), id: doc.id});
+//     });
+//     console.log(users);
+// });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const signinForm = document.querySelector('.signinForm');
+
+    // Add signin form event listener
+    signinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = signinForm.querySelector('#signinEmail').value;
+        const password = signinForm.querySelector('#signinPassword').value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log('User Signed In:', user);
+                window.location.href = 'game.html';
+                docref = doc(db,'users', user.uid)
+                getDoc(docref)
+                    .then((doc)=>{
+                        console.log(doc.data(),doc.id)
+                    })
+                    .catch((error) => {
+                        console.error("Error getting document: ", error);
+                    });
+            })
+            .catch((error) => {
+                console.error('Signin Error:', error.message);
+            });
+    });
+
+    
+});
+
+    </script>
 </body>
 </html>
+
+
