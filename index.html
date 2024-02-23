@@ -5,19 +5,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        html,
+    body {
+      width: 100%;
+      height: 100%;
+      /* background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF); */
+      background-image: url(/assets/back\ treasure.png);
+      background-size: 80%;
+      opacity: 0.8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+    }
+
+    #content_container {
+      width: 80vw;
+      height: 50vh;
+    }
+
+    #form_container {
+      width: 100%;
+      /* height: 100%; */
+      font-family: godofwar;
+      /* background-color: #370617; */
+      background-color: #000;
+      box-shadow: 0 0 50px -20px #000;
+      border-radius: 2%;
+
+      overflow: hidden;
+    }
+
+    #form_header_container {
+      width: 100%;
+      height: 5vh;
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      float: left;
+
+      padding: 20px;
+      padding-bottom: 30px;
+      padding-top: 30px;
+        
+      border-bottom: 1px solid transparent;
+      /* border-image: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF) 20; */
+      border-image: -webkit-linear-gradient(25deg, #f9e6c8, #eacdb7, #bca189, #bea28d, #ae927d) 20;
+      background: #000;
+    }
+
+    #form_header {
+      display: inline-block;
+      font-size: 15px;
+      font-family: Bowlby One SC;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      font-size: xx-large;
+      /* background: -webkit-linear-gradient(25deg, #FFBE0B, #FB5607, #FF006E, #8338EC, #3A86FF); */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: white;
+    }
+
+    #form_content_container {
+      width: 100%;
+      /* height: 15vh; */
+
+      float: left;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding-top: 30px;
+    }
+
+    #form_content_inner_container {
+      width: 75%;
+      height: 100%;
+
+      float: left;
+
+    }
+
+    input {
+      width: 100%;
+      height: 70px;
+
+      padding-left: 10px;
+      margin-bottom: 20px;
+
+      background: #000;
+      font-family: Montserrat;
+      font-weight: 500;
+      color: #fff;
+      font-size: 22px;
+
+      border-bottom: 2px solid transparent;
+      border-top-left-radius: 2%;
+      border-top-right-radius: 2%;
+      border-image: -webkit-linear-gradient(25deg, #f9e6c8, #eacdb7, #bca189, #bea28d, #ae927d) 1;
+    }
+
+    #button_container {
+      width: 100%;
+      height: 65px;
+
+      background-image: -webkit-linear-gradient(25deg, #f9e6c8, #eacdb7, #bca189, #bea28d, #ae927d);
+      color: #fff;
+
+      float: left;
+
+      margin-top: 5px;
+      margin-bottom: 50px;
+    }
+    @font-face {
+        font-family: godofwar;
+        src: url(/fonts/GODOFWAR.TTF);
+    }
+    #button_container button {
+      width: 80%;
+      height: 100%;
+      float: left;  
+      
+
+      background: transparent;
+      color: inherit;
+        margin-left: 10%;
+        
+      font-family: godofwar;
+      letter-spacing: 1px;
+      font-weight: 900;
+      font-size: 32px;
+
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    </style>
 </head>
 <body>
-
-    <form class="signinForm">
+    <div id="content_container">
+        <div id="form_container">
+         <form class="signinForm">
         <!-- <label for="signinName">Name: </label>
         <input type="text" name="name" id="signinName"> -->
+        <div id="form_header_container">
+            <h2 id="form_header"> Login </h2>
+        </div>    
         <label for="signinEmail">Email: </label>
-        <input type="email" name="email" id="signinEmail">
+        <!-- <input type="email" name="email" id="signinEmail"> -->
+        <input type="email" id="signinEmail" placeholder="Email" required>
         <label for="signinPassword">Password: </label>
-        <input type="password" name="password" id="signinPassword">
-        <button type="submit">Signin</button><br>
-        <span><a href="/signup.html">Create an account</a></span>
+        <input type="password" id="signinPassword" placeholder="New Password" required>
+        <!-- <input type="password" name="password" id="signinPassword"> -->
+        <div id="button_container">
+            <button type="submit" style="color: #000;">Signin</button><br>
+        </div>
+        <!-- <span><a href="/signup.html">Create an account</a></span> -->
     </form>
+    </div>
+    </div>
     
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
