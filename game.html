@@ -45,7 +45,39 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth();
         const db = getFirestore();
-    
+        const colref_users = collection(db,'users')
+        const q = query(colref_users,orderBy("createdAt"))
+        onSnapshot(q, (snapshot) => {
+            let users = []
+            snapshot.docs.forEach((doc)=>{
+            users.push({...doc.data(), id:doc.id});
+            })
+            console.log(users)
+            console.log(users[0].active);
+            
+            if(users[0].active == false){
+                auth.signOut().then(() => {
+                    // Sign-out successful.
+                    console.log('User signed out successfully.');
+                    window.location.href = 'finish.html'; // Redirect to sign-in page after logout
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            }
+        })
+        const colref_text = collection(db,'text_response')
+        const q_2 = query(colref_users,orderBy("createdAt"))
+        onSnapshot(q, (snapshot) => {
+            let data = []
+            snapshot.docs.forEach((doc)=>{
+            data.push({...doc.data(), id:doc.id})
+            })
+            console.log(data);
+        })
+      
+
+
         // Check if user is signed in when the DOM content is loaded
         document.addEventListener('DOMContentLoaded', async () => {
             // Check if there is a signed-in user
@@ -69,6 +101,16 @@
                                var active = userData.active;
                                var first_visit = userData.first_visit;
                                
+                            //    const storage = firebase.storage();
+                            //     const storageRef = storage.ref();
+                            //     const folderRef = storageRef.child(user.uid);
+
+                                const form = document.getElementById('imageForm');
+                                const fileInput = document.getElementById('imageFile');
+                                const uploadStatus = document.getElementById('uploadStatus');
+                                const uploadedImageLink = document.getElementById('uploadedImageLink');
+
+                              
                             //    var user_name = userData.name;
                                console.log(uid);
                                if(isNaN(userData.active)){userData.active = true}
@@ -120,11 +162,51 @@
                                             console.error('Error fetching data:', error);
                                         });
                                 }
-
+                                // window.onload = function() {
+                                //         // Your code here
+                                //         fetchQuestions(); // Call fun1() when the window is loaded
+                                //     };
                                 // Add event listener to the button to fetch questions and generate a random question
                                 document.getElementById('generate-button').addEventListener('click', fetchQuestions);
+                                // fetchQuestions();
+
+                                form.addEventListener('submit', function(event) {
+                                    event.preventDefault();
+
+                                    const file = fileInput.files[0];
+                                    if (file) {
+                                        const imageName = toString(question_number)+'_'+toString(Date.now());
+                                        const imageRef = folderRef.child(imageName);
+
+                                        const uploadTask = imageRef.put(file);
+
+                                        uploadTask.on('state_changed',
+                                        function(snapshot) {
+                                            // Upload progress
+                                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                                            uploadStatus.innerText = 'Uploading... ' + progress.toFixed(2) + '%';
+                                        },
+                                        function(error) {
+                                            // Handle unsuccessful uploads
+                                            console.error('Upload error:', error);
+                                        },
+                                        function() {
+                                            // Handle successful uploads on complete
+                                            uploadStatus.innerText = 'Uploaded successfully!';
+                                            // Get the public download URL for the uploaded image
+                                            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                                            // Display the download URL
+                                            uploadedImageLink.innerHTML = `<a href="${downloadURL}" target="_blank">Download Image</a>`;
+                                            });
+                                        }
+                                        );
+                                    } else {
+                                        alert('Please select an image to upload.');
+                                    }
+                                    });
 
 
+                                    
                                 // adding documents
                                 const addTextForm = document.querySelector('.text')
                                 const colref_text = collection(db,'text_response')
@@ -144,6 +226,7 @@
                                 })
 
 
+                               
 
 
 
@@ -186,13 +269,20 @@
      <div id="question-container">
         <h2>Random Question Generator</h2>
         <p id="question-text">Click the button to generate a random question.</p>
-        <button id="generate-button">Generate Question</button>
+        <button id="generate-button">generate text</button>
     </div>
      <form class="text">
         <label for="author">Task Response:</label>
         <input type="text" name="text_response" required>
         <button type="submit">Submit Task</button>
+    </form><br><br><br>
+    <h1>Image Upload Form</h1>
+    <form id="imageForm">
+      <input type="file" id="imageFile" accept="image/*">
+      <button type="submit">Upload</button>
     </form>
-    
+    <div id="uploadStatus"></div>
+    <div id="uploadedImageLink"></div>
+  
 </body>
 </html>
