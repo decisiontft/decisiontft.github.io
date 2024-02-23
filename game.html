@@ -46,26 +46,26 @@
         const auth = getAuth();
         const db = getFirestore();
         const colref_users = collection(db,'users')
-        const q = query(colref_users,orderBy("createdAt"))
-        onSnapshot(q, (snapshot) => {
-            let users = []
-            snapshot.docs.forEach((doc)=>{
-            users.push({...doc.data(), id:doc.id});
-            })
-            console.log(users)
-            console.log(users[0].active);
+        // const q = query(colref_users,orderBy("createdAt"))
+        // onSnapshot(q, (snapshot) => {
+        //     let users = []
+        //     snapshot.docs.forEach((doc)=>{
+        //     users.push({...doc.data(), id:doc.id})
+        //     })
+        //     console.log(users);
+        //     console.log(users[0].active);
             
-            if(users[0].active == false){
-                auth.signOut().then(() => {
-                    // Sign-out successful.
-                    console.log('User signed out successfully.');
-                    window.location.href = 'finish.html'; // Redirect to sign-in page after logout
-                }).catch((error) => {
-                    // An error happened.
-                    console.error('Error signing out:', error);
-                });
-            }
-        })
+        //     if(users[0].active == false){
+        //         auth.signOut().then(() => {
+        //             // Sign-out successful.
+        //             console.log('User signed out successfully.');
+        //             window.location.href = 'finish.html'; // Redirect to sign-in page after logout
+        //         }).catch((error) => {
+        //             // An error happened.
+        //             console.error('Error signing out:', error);
+        //         });
+        //     }
+        // })
         const colref_text = collection(db,'text_response')
         const q_2 = query(colref_users,orderBy("createdAt"))
         onSnapshot(q, (snapshot) => {
@@ -101,15 +101,6 @@
                                var active = userData.active;
                                var first_visit = userData.first_visit;
                                
-                            //    const storage = firebase.storage();
-                            //     const storageRef = storage.ref();
-                            //     const folderRef = storageRef.child(user.uid);
-
-                                const form = document.getElementById('imageForm');
-                                const fileInput = document.getElementById('imageFile');
-                                const uploadStatus = document.getElementById('uploadStatus');
-                                const uploadedImageLink = document.getElementById('uploadedImageLink');
-
                               
                             //    var user_name = userData.name;
                                console.log(uid);
@@ -170,40 +161,6 @@
                                 document.getElementById('generate-button').addEventListener('click', fetchQuestions);
                                 // fetchQuestions();
 
-                                form.addEventListener('submit', function(event) {
-                                    event.preventDefault();
-
-                                    const file = fileInput.files[0];
-                                    if (file) {
-                                        const imageName = toString(question_number)+'_'+toString(Date.now());
-                                        const imageRef = folderRef.child(imageName);
-
-                                        const uploadTask = imageRef.put(file);
-
-                                        uploadTask.on('state_changed',
-                                        function(snapshot) {
-                                            // Upload progress
-                                            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                                            uploadStatus.innerText = 'Uploading... ' + progress.toFixed(2) + '%';
-                                        },
-                                        function(error) {
-                                            // Handle unsuccessful uploads
-                                            console.error('Upload error:', error);
-                                        },
-                                        function() {
-                                            // Handle successful uploads on complete
-                                            uploadStatus.innerText = 'Uploaded successfully!';
-                                            // Get the public download URL for the uploaded image
-                                            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                                            // Display the download URL
-                                            uploadedImageLink.innerHTML = `<a href="${downloadURL}" target="_blank">Download Image</a>`;
-                                            });
-                                        }
-                                        );
-                                    } else {
-                                        alert('Please select an image to upload.');
-                                    }
-                                    });
 
 
                                     
