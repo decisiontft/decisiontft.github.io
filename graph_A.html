@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Graph</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/adapters/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<style>
+    
+</style>
+<script>
+        
+    window.onload = function() {
+// Check if the user agent indicates a mobile device
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth<940) {
+// Redirect to the mobile version of the website or any other URL
+window.location.href = 'mobile.html'; // Replace 'mobile-version.html' with the URL you want to redirect to
+}
+};
+</script>
+</head>
+<body style="padding: 10px; margin: 0; background-color: #1b3043; color: white; font-family: cursive">
+       <button class="logoutButton">Log Out</button>
+    <nav style="height: 100px; width: 100%; display: flex;flex-direction: column; align-items: center; justify-content: center;">
+        <span id="displayBalance"></span>
+        <span id="displayASharesOwned"></span>
+    </nav>
+    <div id="chart" style="width: 100%; overflow-x: scroll;"class="chartted"></div>
+    <br>
+
+    <div style="display: flex; margin: auto; align-items: center; justify-content: center;">
+        <form class="buyForm" id="buyForm" style="height: 100px; width: 45vw; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <span>Buy </span><br>
+            <label for="amountBuy">Number of Shares: </label>
+            <input style="background-color: rgb(20, 37, 53); border: 1px solid white; border-radius: 6px; font-size: small; color: white; " type="number" name="amountBuy" id="amountBuy" placeholder="Enter Here">
+            <button type="submit" style="font-family: cursive; background-color: #1b3043; color: white; border: 0.5px solid rgba(255, 255, 255, 0.348); border-radius: 6px;">Buy</button>
+        </form>
+        <form class="sellForm" id="sellForm" style="height: 100px; width: 45vw; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <span>Sell</span><br>
+            <label for="amountSell">Number of Shares: </label>
+            <input style="background-color: rgb(20, 37, 53); border: 1px solid white; border-radius: 6px; font-size: small; color: white;  " type="number" name="amountSell" id="amountSell"  placeholder="Enter Here">
+            <button type="submit" style="font-family: cursive; background-color: #1b3043; color: white; border: 0.5px solid rgba(255, 255, 255, 0.348); border-radius: 6px;">Sell</button>
+        </form>
+    </div>
+   
+    <br>
+    <br>
+    <br>
+ 
+    
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+    
+    <script type="module" >
+        
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp,
+deleteDoc,
+doc,
+where,
+getDoc,
+setDoc,
+updateDoc
+
+} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDYy22BXGNYbd-n3c6zeyB5irWLa9ns1oY",
+  authDomain: "stockmarket-5efd9.firebaseapp.com",
+  projectId: "stockmarket-5efd9",
+  storageBucket: "stockmarket-5efd9.appspot.com",
+  messagingSenderId: "620940693482",
+  appId: "1:620940693482:web:c81de6f95f9ff0ec3fac93",
+  measurementId: "G-64BLC35JQ8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+const db = getFirestore();
+const colref = collection(db, 'users');
+const q = query(colref, orderBy("createdAt"));
+onSnapshot(q, (snapshot) => {
+    let users = [];
+    snapshot.docs.forEach((doc) => {
+        users.push({...doc.data(), id: doc.id});
+    });
+    console.log(users);
+    
+});
+
+let global_values = []
+let global_data = []
+
+// *******************     Graph Code Starts        *******************
+fetch('https://raw.githubusercontent.com/decisiontft/stock-market-simulation/main/A.json?'+"kajov="+toString(Math.floor(Math.random() * 100000000) + 1))
+.then(response => response.json())
+  .then(data => {
+    // Process the JSON data here 
+    console.log(data);
+    global_data = data;
+    const timestamps = data.map(item => item.x);
+    const values = data.map(item => item.y[0]);
+    console.log(timestamps,values);
+    global_values = values;
+    var options = {
+          series: [{
+          data: global_data
+        }],
+          chart: {
+          type: 'candlestick',
+          height: 500,
+        },
+        title: {
+          text: 'Goldbees',
+          align: 'center',
+          style:{
+            color: "white",        
+            fontSize:"50px",
+          },
+          
+        },
+        xaxis: {
+            type: 'datetime',
+    labels: {
+      datetimeUTC: false, // Display timestamps in local time zone
+      style: {
+        colors: '#ffffff' // Set label color to white
+      }
+    },
+
+        },
+        yaxis: {
+          tooltip: {
+            enabled: true
+          },
+          labels: {
+      style: {
+        colors: '#ffffff' // Set label color to white
+      }
+    }
+        }
+        };
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+    
+    // Chart
+    // const ctx = document.getElementById('myChart').getContext('2d');
+    // const myChart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: timestamps, // X-axis
+    //         datasets: [{
+    //             label: 'Reliance',
+    //             data: values, // Y-axis
+    //             fill: false,
+    //             borderColor: 'white',
+    //             tension: 0.1
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             x: {
+    //                 type: 'linear',
+    //                 position: 'bottom',
+    //                 ticks: {
+    //                     color: 'white', // Set x-axis label color to white
+    //                     callback: function(value, index, values) {
+    //                         // Convert value to time format (HH:MM)
+    //                         console.log(`${value}`)
+    //                         const hours = String(value).slice(0, 2);
+    //                         const minutes = String(value).slice(2, 4);
+    //                         return `${hours}:${minutes}`;
+    //                     }
+    //                 }
+    //             },
+    //             y: {
+    //             ticks: {
+    //                 color: 'white' // Set y-axis label color to white
+    //             }
+    //         }
+    //         },
+    //         plugins: {
+    //         legend: {
+    //             labels: {
+    //                 color: 'white' // Set legend label color to white
+    //             }
+    //         }
+    //     }
+    //     }
+    // });
+
+  })
+  .catch(error => console.error('Error fetching JSON:', error));
+  
+
+     
+
+
+
+  // *******************     Graph Code Ends        *******************
+
+  document.addEventListener('DOMContentLoaded', async () => {
+            // Check if there is a signed-in user
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    // User is signed in, retrieve user data
+                    const userDocRef = doc(db, 'users', user.uid);
+                    document.querySelector('.logoutButton').style.display = 'block';
+                    document.querySelector('.buyForm').style.display = 'block';
+                    document.querySelector('.sellForm').style.display = 'block';
+                    try {
+                        // Get the user document from Firestore
+                        const userDocSnapshot = await getDoc(userDocRef);
+                        
+                        if (userDocSnapshot.exists()) {
+                            
+                            const userData = userDocSnapshot.data();
+                            document.getElementById('displayBalance').textContent = `Current Balance : ${userData.balance}`;
+                            document.getElementById('displayASharesOwned').textContent = `Shares Owned : ${userData.A}`;
+                            console.log('User Data:', userData);
+                            const buyForm = document.querySelector('.buyForm');
+                            const sellForm = document.querySelector('.sellForm');
+                            const userId = user.uid;
+                            // console.log(userId)
+
+                            
+                            
+                            
+                            const updateBuyForm = document.querySelector('.buyForm')
+                                updateBuyForm.addEventListener('submit',(e)=>{
+                                    e.preventDefault()
+                                    const amountBuy = buyForm.querySelector('#amountBuy').value; 
+                                    
+                                    if(isNaN(userData.A)){userData.A = 0}
+                                    if(isNaN(userData.balance)){userData.balance = 0}
+                                    const newABuy = parseInt(userData.A) + parseInt(amountBuy);
+                                    const newBalanceBuy = userData.balance - (amountBuy*global_values[global_values.length - 1]);
+                                    console.log(`${newBalanceBuy} = ${userData.balance} - ${(amountBuy*global_values[global_values.length - 1])}`)
+
+                                    console.log(`New a Buy ${userData.A} => ${newABuy}`)
+                                    const docRef = doc(db,'users',userId)
+                                    if(newBalanceBuy>=0){
+                                    updateDoc(docRef,{
+                                        A:parseInt(newABuy),
+                                        balance:newBalanceBuy
+                                    })
+                                    .then(() => {
+                                        buyForm.reset();
+                                        console.log(userData);
+                                        location.reload();
+
+                                    })
+                                }
+                                else{
+                                    alert(`Not Enough Balance to Buy`)
+                                }
+
+                                })
+                            const updateSellForm = document.querySelector('.sellForm')
+                                updateSellForm.addEventListener('submit',(e)=>{
+                                    e.preventDefault()
+                                    const amountSell = sellForm.querySelector('#amountSell').value;
+                                    
+                                    if(isNaN(userData.A)){userData.A = 0}
+                                    if(isNaN(userData.balance)){userData.balance = 0}
+                                    const newASell = userData.A - amountSell;
+                                    const newABalanceSell = userData.balance + (amountSell*global_values[global_values.length - 1]);
+                                    console.log(`${newABalanceSell} = ${userData.balance} + ${(amountSell*global_values[global_values.length - 1])}`)
+
+                                    console.log(`New a Sell ${userData.A} => ${newASell}`)
+                                    const docRef = doc(db,'users',userId)
+                                    if(newASell>=0){
+                                    updateDoc(docRef,{
+                                        A:parseInt(newASell),
+                                        balance:newABalanceSell
+                                    })
+                                    .then(() => {
+                                        buyForm.reset();
+                                        console.log(userData);
+                                        location.reload();
+
+                                    })
+                                }
+                                else{
+                                    alert(`You don't have enough shares`)
+                                }
+
+                                })
+
+                        } else {
+                            console.log('User document does not exist.');
+                        }
+                    } catch (error) {
+                        console.error('Error getting user document:', error);
+                    }
+                } else {
+                    console.log('No user signed in.');
+                    document.querySelector('.logoutButton').style.display = 'None';
+                    document.querySelector('.buyForm').style.display = 'None';
+                    document.querySelector('.sellForm').style.display = 'None';
+                }
+            });
+            const logoutButton = document.querySelector('.logoutButton');
+            logoutButton.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    // Sign-out successful.
+                    console.log('User signed out successfully.');
+                    window.location.href = 'index.html'; // Redirect to sign-in page after logout
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+
+            });
+
+
+    </script>
+</body>
+</html>

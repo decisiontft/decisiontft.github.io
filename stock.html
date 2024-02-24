@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Page</title>
+</head>
+<body>
+    <button class="logoutButton">Log Out</button>
+<div>
+    <!-- <p id="userData"></p> -->
+    <p id="userName"></p>
+    <p id="A"></p>
+    <p id="B"></p>
+    <p id="C"></p>
+    <p id="D"></p>
+    <p id="E"></p>
+    <p id="userBalance"></p>
+</div>
+<span><a href="/graph_A.html">Click here for Stock A </a></span><br><br><br><br>
+<span><a href="/graph_B.html">Click here for Stock B </a></span><br><br><br><br>
+<span><a href="/graph_C.html">Click here for Stock C </a></span><br><br><br><br>
+<span><a href="/graph_D.html">Click here for Stock D </a></span><br><br><br><br>
+<span><a href="/graph_E.html">Click here for Stock E </a></span><br><br><br><br>
+
+    <script type="module">
+        // Import Firebase SDK modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    
+        // Firebase configuration
+        const firebaseConfig = {
+                apiKey: "AIzaSyDYy22BXGNYbd-n3c6zeyB5irWLa9ns1oY",
+                authDomain: "stockmarket-5efd9.firebaseapp.com",
+                projectId: "stockmarket-5efd9",
+                storageBucket: "stockmarket-5efd9.appspot.com",
+                messagingSenderId: "620940693482",
+                appId: "1:620940693482:web:c81de6f95f9ff0ec3fac93",
+                measurementId: "G-64BLC35JQ8"
+            };
+
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+    
+        // Check if user is signed in when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if there is a signed-in user
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    // User is signed in, retrieve user data
+                    const userDocRef = doc(db, 'users', user.uid);
+    
+                    try {
+                        // Get the user document from Firestore
+                        const userDocSnapshot = await getDoc(userDocRef);
+    
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            console.log('User Data:', userData);
+                            // const userDataParagraph = document.getElementById('userData'); // Corrected typo: getElementById instead of getElementByid
+                            // Update the content of the <p> tag with user data
+                                document.getElementById('userName').textContent = `Name: ${userData.name}`;
+                                document.getElementById('A').textContent = ` A: ${userData.A}`;
+                                document.getElementById('B').textContent = ` B: ${userData.B}`;
+                                document.getElementById('C').textContent = ` C: ${userData.C}`;
+                                document.getElementById('D').textContent = ` D: ${userData.D}`;
+                                document.getElementById('E').textContent = ` E: ${userData.E}`;
+                                document.getElementById('userBalance').textContent = ` Balance: ${userData.balance}`;
+
+
+                        } else {
+                            console.log('User document does not exist.');
+                        }
+                    } catch (error) {
+                        console.error('Error getting user document:', error);
+                    }
+                } else {
+                    console.log('No user signed in.');
+                }
+            });
+    
+            // Add logout button event listener
+            const logoutButton = document.querySelector('.logoutButton');
+            logoutButton.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    // Sign-out successful.
+                    console.log('User signed out successfully.');
+                    window.location.href = 'index.html'; // Redirect to sign-in page after logout
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+
+
+
+
+
+        });
+    </script>
+    
+</body>
+</html>
