@@ -18,16 +18,16 @@
 };
 </script>
 </head>
-<body style="padding: 10px; margin: 0; background-color: #1b3043; color: white; font-family: cursive">
+<body style="padding: 10px; margin: 0; background-color: #1b3043;color: black; font-family: cursive">
     <button class="logoutButton">Log Out</button>
- <nav style="height: 100px; width: 100%; display: flex;flex-direction: column; align-items: center; justify-content: center;">
+ <nav style="height: 100px; width: 100%; display: flex;flex-direction: column; align-items: center; justify-content: center; color: white !important;">
      <span id="displayBalance"></span>
      <span id="displayASharesOwned"></span>
  </nav>
  <div id="chart" style="width: 100%; overflow-x: scroll;"class="chartted"></div>
  <br>
 
- <div style="display: flex; margin: auto; align-items: center; justify-content: center;">
+ <div style="display: flex; margin: auto; align-items: center; justify-content: center;  color: white !important;">
      <form class="buyForm" id="buyForm" style="height: 100px; width: 45vw; display: flex; flex-direction: row; align-items: center; justify-content: center;">
          <span>Buy </span><br>
          <label for="amountBuy">Number of Shares: </label>
@@ -46,6 +46,7 @@
  <br>
  <br>
 
+ 
  
  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
