@@ -4,24 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Page</title>
+    <style>
+        div{
+            color: white;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: rgb(0, 0, 0);">
     <button class="logoutButton">Log Out</button>
 <div>
     <!-- <p id="userData"></p> -->
-    <p id="userName"></p>
-    <p id="A"></p>
-    <p id="B"></p>
-    <p id="C"></p>
-    <p id="D"></p>
-    <p id="E"></p>
-    <p id="userBalance"></p>
+    
+    
+    
+    
 </div>
-<span><a href="/graph_A.html">Click here for Stock A </a></span><br><br><br><br>
-<span><a href="/graph_B.html">Click here for Stock B </a></span><br><br><br><br>
-<span><a href="/graph_C.html">Click here for Stock C </a></span><br><br><br><br>
-<span><a href="/graph_D.html">Click here for Stock D </a></span><br><br><br><br>
-<span><a href="/graph_E.html">Click here for Stock E </a></span><br><br><br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center><div>    <p id="userName" style="scale: 1.5;"></p>
+</div></center>
+<center><div>    <p id="userBalance" style="scale: 2;"></p>
+    
+    
+<br>
+<br>
+<br>
+<br>
+<br>
+</div></center>
+<div style="display: flex; flex-wrap: wrap; ">
+<div style=" margin: 10px;width: 18vw; display: flex; flex-direction: column; align-items: center;justify-content: center; border: 1px solid white; border-radius: 12px; ">
+    <center style="margin-top: 15%; margin-bottom: 5%; font-size: 75%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Goldbees</center>
+    <div style="font-size: larger; ">
+        Stocks Owned
+    <center><p id="A"></p></center>
+    </div>
+    <span><a style="text-decoration: none; font-weight: 700;" href="/graph_A.html">Click here for Stock Goldbees </a></span><br><br><br><br>
+</div>
+<div style=" margin: 10px;width: 18vw; display: flex; flex-direction: column; align-items: center;justify-content: center; border: 1px solid white; border-radius: 12px; ">
+    <center style="margin-top: 15%; margin-bottom: 5%; font-size: 75%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Bank Of Baroda</center>
+    <div style="font-size: larger; ">
+        Stocks Owned
+    <center><p id="B"></p></center>
+    </div>
+    <span><a style="text-decoration: none; font-weight: 700;" href="/graph_A.html">Click here for Stock Bank Of Baroda </a></span><br><br><br><br>
+</div>
+<div style=" margin: 10px;width: 18vw; display: flex; flex-direction: column; align-items: center;justify-content: center; border: 1px solid white; border-radius: 12px; ">
+    <center style="margin-top: 15%; margin-bottom: 5%; font-size: 75%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Hdfc</center>
+    <div style="font-size: larger; ">
+        Stocks Owned
+    <center><p id="C"></p></center>
+    </div>
+    <span><a style="text-decoration: none; font-weight: 700;" href="/graph_A.html">Click here for Stock Hdfc </a></span><br><br><br><br>
+</div>
+<div style=" margin: 10px;width: 18vw; display: flex; flex-direction: column; align-items: center;justify-content: center; border: 1px solid white; border-radius: 12px; ">
+    <center style="margin-top: 15%; margin-bottom: 5%; font-size: 75%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">ONGC</center>
+    <div style="font-size: larger; ">
+        Stocks Owned
+    <center><p id="D"></p></center>
+    </div>
+    <span><a style="text-decoration: none; font-weight: 700;" href="/graph_A.html">Click here for Stock ONGC </a></span><br><br><br><br>
+</div>
+<div style=" margin: 10px;width: 18vw; display: flex; flex-direction: column; align-items: center;justify-content: center; border: 1px solid white; border-radius: 12px; ">
+    <center style="margin-top: 15%; margin-bottom: 5%; font-size: 75%; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Infosys</center>
+    <div style="font-size: larger; ">
+        Stocks Owned
+    <center><p id="E"></p></center>
+    </div>
+    <span><a style="text-decoration: none; font-weight: 700;" href="/graph_A.html">Click here for Stock Infosys </a></span><br><br><br><br>
+</div>
+
+</div>
 
     <script type="module">
         // Import Firebase SDK modules
@@ -63,12 +122,12 @@
                             console.log('User Data:', userData);
                             // const userDataParagraph = document.getElementById('userData'); // Corrected typo: getElementById instead of getElementByid
                             // Update the content of the <p> tag with user data
-                                document.getElementById('userName').textContent = `Name: ${userData.name}`;
-                                document.getElementById('A').textContent = ` A: ${userData.A}`;
-                                document.getElementById('B').textContent = ` B: ${userData.B}`;
-                                document.getElementById('C').textContent = ` C: ${userData.C}`;
-                                document.getElementById('D').textContent = ` D: ${userData.D}`;
-                                document.getElementById('E').textContent = ` E: ${userData.E}`;
+                                document.getElementById('userName').textContent = `${userData.name}`;
+                                document.getElementById('A').textContent = ` ${userData.A}`;
+                                document.getElementById('B').textContent = ` ${userData.B}`;
+                                document.getElementById('C').textContent = ` ${userData.C}`;
+                                document.getElementById('D').textContent = ` ${userData.D}`;
+                                document.getElementById('E').textContent = ` ${userData.E}`;
                                 document.getElementById('userBalance').textContent = ` Balance: ${userData.balance}`;
 
 

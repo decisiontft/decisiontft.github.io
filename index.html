@@ -16,8 +16,8 @@
     };
     </script>
 </head>
-<body>
-
+<body style="height: 100vh;display: flex;flex-direction: column; align-items: center; justify-content: center; background-color: #1b3043; color: white;">
+<p style="scale: 2; ">Ambiora'24 Innofusion</p>
     <!-- <form class="signupForm">
         <label for="signupName">Name: </label>
         <input type="text" name="name" id="signupName">
@@ -27,15 +27,19 @@
         <input type="password" name="password" id="signupPassword">
         <button type="submit">Signup</button>
     </form> -->
-    <form class="signinForm">
+    <form class="signinForm" style="border: 1px solid white; display: flex; flex-direction: column; border-radius: 18px; height: 50vh; width: 50vh; align-items: center; padding: 5%;">
+        <center><p style="font-family: 'Times New Roman', Times, serif; scale: 2;">Login</p></center>
         <!-- <label for="signinName">Name: </label>
         <input type="text" name="name" id="signinName"> -->
-        <label for="signinEmail">Email: </label>
-        <input type="email" name="email" id="signinEmail">
+        <div style="margin-top: 15%; scale: 1.5;">
+        <label for="signinEmail">Email: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input type="email" name="email" id="signinEmail" style="background-color: white; border-radius: 8px;">
+    </div>
+    <div style="margin-top: 15%; scale: 1.5;">
         <label for="signinPassword">Password: </label>
-        <input type="password" name="password" id="signinPassword">
-        <button type="submit">Signin</button><br>
-        <span><a href="/signup.html">Create an account</a></span>
+        <input type="password" name="password" id="signinPassword" style="background-color: white; border-radius: 8px;">
+    </div>
+        <button type="submit" style="margin-top: 15%; scale:2; font-family: 'Times New Roman', Times, serif; background-color: #5f656b; color: white; border: 0px solid white; border-radius: 6px; font-size: ;">Signin</button><br>
     </form>
     
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->

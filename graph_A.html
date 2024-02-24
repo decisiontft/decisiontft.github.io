@@ -23,16 +23,16 @@ window.location.href = 'mobile.html'; // Replace 'mobile-version.html' with the 
 };
 </script>
 </head>
-<body style="padding: 10px; margin: 0; background-color: #1b3043; color: white; font-family: cursive">
+<body style="padding: 10px; margin: 0; background-color: #1b3043;color: black; font-family: cursive">
        <button class="logoutButton">Log Out</button>
-    <nav style="height: 100px; width: 100%; display: flex;flex-direction: column; align-items: center; justify-content: center;">
+    <nav style="height: 100px; width: 100%; display: flex;flex-direction: column; align-items: center; justify-content: center; color: white !important;">
         <span id="displayBalance"></span>
         <span id="displayASharesOwned"></span>
     </nav>
     <div id="chart" style="width: 100%; overflow-x: scroll;"class="chartted"></div>
     <br>
 
-    <div style="display: flex; margin: auto; align-items: center; justify-content: center;">
+    <div style="display: flex; margin: auto; align-items: center; justify-content: center;  color: white !important;">
         <form class="buyForm" id="buyForm" style="height: 100px; width: 45vw; display: flex; flex-direction: row; align-items: center; justify-content: center;">
             <span>Buy </span><br>
             <label for="amountBuy">Number of Shares: </label>
@@ -105,7 +105,7 @@ let global_values = []
 let global_data = []
 
 // *******************     Graph Code Starts        *******************
-fetch('https://raw.githubusercontent.com/decisiontft/stock-market-simulation/main/A.json?'+"kajov="+toString(Math.floor(Math.random() * 100000000) + 1))
+fetch('https://raw.githubusercontent.com/decisiontft/stock-new/main/A.json?'+"kajov="+toString(Math.floor(Math.random() * 100000000) + 1))
 .then(response => response.json())
   .then(data => {
     // Process the JSON data here 
