@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag to Reveal Divider</title>
+    <style>
+        body, html {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-image: url('/gradient-background-3840x2160-9837.png');
+            color: white;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .img1 {
+            background-image: url('/1.png'); /* Replace with your first image URL */
+            z-index: 1;
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); /* Initially show the left half */
+        }
+
+        .img2 {
+            background-image: url('/2.png'); /* Replace with your second image URL */
+            z-index: 0;
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); /* Initially show the right half */
+            display: flex;
+            flex-direction: column-reverse;
+            justify-content: right;
+            align-items: flex-end;
+        }
+
+        .divider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            cursor: ew-resize;
+            z-index: 2;
+        }
+
+        .handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 2px solid #000;
+            border-radius: 50%;
+        }
+
+        .no-select {
+            user-select: none;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 3;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#freelance">Freelance</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#just_me">Just_me</a>
+    </div>
+
+    <div class="container">
+        <div class="image img1" id="freelance"></div>
+        <div class="image img2" id="experience"></div>
+        <div class="divider">
+            <div class="handle"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.container');
+            const divider = document.querySelector('.divider');
+            const img1 = document.querySelector('.img1');
+            const img2 = document.querySelector('.img2');
+            const handle = document.querySelector('.handle');
+
+            let isDragging = false;
+
+            handle.addEventListener('mousedown', () => {
+                isDragging = true;
+                container.classList.add('no-select');
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                container.classList.remove('no-select');
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const containerRect = container.getBoundingClientRect();
+                    const offsetX = e.clientX - containerRect.left;
+
+                    // Ensure the divider doesn't go beyond the container boundaries
+                    const newPosition = Math.min(Math.max(offsetX, 0), containerRect.width);
+                    const percentage = (newPosition / containerRect.width) * 100;
+                    divider.style.left = `${percentage}%`;
+                    img1.style.clipPath = `polygon(0 0, ${percentage}% 0, ${percentage}% 100%, 0 100%)`;
+                    img2.style.clipPath = `polygon(${percentage}% 0, 100% 0, 100% 100%, ${percentage}% 100%)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
