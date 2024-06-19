@@ -7,9 +7,8 @@
     <style>
         body, html {
             margin: 0;
-            height: 100%;
-            overflow: hidden;
             font-family: Arial, sans-serif;
+            background-image: url('/gradient-background-3840x2160-9837.png');
             color: white;
         }
 
@@ -31,13 +30,13 @@
         }
 
         .img1 {
-            background-image: url('/portfolio/1.png'); /* Replace with your first image URL */
+            background-image: url('/quality_pics/1.png'); /* Replace with your first image URL */
             z-index: 1;
             clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%); /* Initially show the left half */
         }
 
         .img2 {
-            background-image: url('/portfolio/2.png'); /* Replace with your second image URL */
+            background-image: url('/quality_pics/2.png'); /* Replace with your second image URL */
             z-index: 0;
             clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); /* Initially show the right half */
             display: flex;
@@ -95,13 +94,60 @@
         .navbar a:hover {
             color: #ccc;
         }
+
+        /* Projects Section */
+        .projects {
+            padding: 50px;
+            background-color: #111;
+        }
+
+        .projects h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+        }
+
+        .project-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .project-card {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+        }
+
+        .project-card img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .project-card h3 {
+            margin: 20px 0 10px;
+        }
+
+        .project-card p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <a href="#freelance">Freelance</a>
         <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
+        <a href="#projects1">Projects</a>
         <a href="#just_me">Just_me</a>
     </div>
 
@@ -112,6 +158,50 @@
             <div class="handle"></div>
         </div>
     </div>
+
+    <!-- Projects Section -->
+    <section class="projects" id="freelance">
+        <h2>Choose Your Jay</h2>
+        <div class="project-cards">
+            <div class="project-card">
+                <img src="/jay_casal_grey-removebg.png" alt="Project Image">
+                <h3>The Intern</h3>
+                <p>This clone of Jay comes with a built-in feature of hardwork, and desire to learn. He'll will go out the ways to bring the aspired success to the task.</p>
+            </div>
+            <div class="project-card">
+                <img src="/formal 3 removed.png" alt="Project Image">
+                <h3>The Freelancer</h3>
+                <p>This clone of Jay has been providing with the best services in the market of Development, AI, Product Enhancements, and Market Research for years.</p>
+            </div>
+            <div class="project-card">
+                <img src="/formal jay removed bg.png" alt="Project Image">
+                <h3>The Project Maker</h3>
+                <p>This is a fun version, don't go to his serious face and red tie, he just loves designing and developing new things and learning about the latest technologies in the world.</p>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
+    <section class="projects" id="projects1">
+        <h2>Projects</h2>
+        <div class="project-cards">
+            <div class="project-card">
+                <img src="/stock.jpg" alt="Project Image">
+                <h3>Trading Platform Simulation </h3>
+                <p>This clone of Jay comes with a built-in feature of hardwork, and desire to learn. He'll will go out the ways to bring the aspired success to the task.</p>
+            </div>
+            <div class="project-card">
+                <img src="/project 3.jpg" alt="Project Image">
+                <h3>Project 2</h3>
+                <p>This clone of Jay has been providing with the best services in the market of Development, AI, Product Enhancements, and Market Research for years.</p>
+            </div>
+            <div class="project-card">
+                <img src="/imgbin-binary-tree-time-complexity-sequence-stack-university-CGuAeSfvfmj232axEKEGurnKu.jpg" alt="Project Image">
+                <h3>Project 3</h3>
+                <p>This is a fun version, don't go to his serious face and red tie, he just loves designing and developing new things and learning about the latest technologies in the world.</p>
+            </div>
+            <!-- Add more project cards as needed -->
+        </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
