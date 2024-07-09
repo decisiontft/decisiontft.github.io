@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Maps</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style>
+        body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #110434;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; /* Reset default margin */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: #1a237e;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #e57373;
+}
+
+.maps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px; /* Adjust max width as needed */
+    padding: 20px;
+}
+
+.map-container {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.map-label {
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+    background-color: #2196f3;
+    color: white;
+    margin-bottom: 0;
+}
+
+.map {
+    width: 100%; /* Full width map */
+    height: 300px;
+}
+
+.no-active-users {
+    text-align: center;
+    font-size: 1.5em;
+    color: #616161;
+}
+
+.user-info {
+    padding: 10px;
+    background-color: #424242;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.call-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.call-button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">Live Maps</div>
+        <div class="user-actions">
+            <div id="user-name"></div>
+            <button onclick="logout()" class="logout-button">Logout</button>
+        </div>
+    </div>
+
+    <div class="maps-grid" id="maps-grid">
+        <!-- Maps will be dynamically added here -->
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYAHsIh1kt-B99XiPTZYNC85z61ziFtL4",
+            authDomain: "techkotapolice-9bfa6.firebaseapp.com",
+            databaseURL: "https://techkotapolice-9bfa6-default-rtdb.firebaseio.com",
+            projectId: "techkotapolice-9bfa6",
+            storageBucket: "techkotapolice-9bfa6.appspot.com",
+            messagingSenderId: "816176697788",
+            appId: "1:816176697788:web:17bb6e4f488051062adbb9",
+            measurementId: "G-QYZFQ1W4QQ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Handle authentication state changes
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                console.log("User is signed in:", user.uid);
+                displayUserName(user);
+                loadActiveUsers();
+            } else {
+                // No user is signed in, redirect to login page
+                console.log("No user signed in.");
+                window.location.href = "login.html";
+            }
+        });
+
+        function displayUserName(user) {
+    const userNameElement = document.getElementById('user-name');
+    if (userNameElement) {
+        // Fetch user document from Firestore
+        db.collection("users").doc(user.uid).get().then((doc) => {
+            if (doc.exists) {
+                // Get the user's name from the document
+                const userName = doc.data().name;
+                userNameElement.textContent = `Welcome, ${userName}`;
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.error("Error getting document:", error);
+        });
+    }
+}
+
+
+        function logout() {
+            auth.signOut().then(() => {
+                // Sign-out successful, redirect to login page
+                console.log("User signed out.");
+                window.location.href = "login.html";
+            }).catch((error) => {
+                // An error happened
+                console.error("Error signing out:", error);
+            });
+        }
+
+        function loadActiveUsers() {
+            db.collection("locations").where("active", "==", true).get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        // Display "No Active Users" message if no active documents
+                        const noActiveUsersMessage = document.createElement('div');
+                        noActiveUsersMessage.classList.add('no-active-users');
+                        noActiveUsersMessage.textContent = "No Active Users";
+                        document.getElementById('maps-grid').appendChild(noActiveUsersMessage);
+                    } else {
+                        querySnapshot.forEach((doc) => {
+                            const data = doc.data();
+                            const userId = data.user_id;
+                            const waypoints = data.waypoints.map(point => [point.latitude, point.longitude]);
+
+                            // Fetch user details
+                            db.collection("users").doc(userId).get().then((userDoc) => {
+                                if (userDoc.exists) {
+                                    const userData = userDoc.data();
+                                    const userName = userData.name;
+                                    const userContact = userData.contact;
+
+                                    // Create a new map container
+                                    const container = document.createElement('div');
+                                    container.classList.add('map-container');
+
+                                    // Add label
+                                    const label = document.createElement('div');
+                                    label.classList.add('map-label');
+                                    label.textContent = `Name: ${userName}`;
+                                    container.appendChild(label);
+
+                                    // Add map
+                                    const mapDiv = document.createElement('div');
+                                    mapDiv.classList.add('map');
+                                    container.appendChild(mapDiv);
+                                    document.getElementById('maps-grid').appendChild(container);
+
+                                    // Initialize the map
+                                    const map = L.map(mapDiv).setView(waypoints[0], 13);
+                                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    }).addTo(map);
+
+                                    // Add the route
+                                    const polyline = L.polyline(waypoints, { color: 'blue' }).addTo(map);
+                                    map.fitBounds(polyline.getBounds());
+
+                                    // Add a marker at the last waypoint
+                                    const lastWaypoint = waypoints[waypoints.length - 1];
+                                    L.marker(lastWaypoint).addTo(map)
+                                        .bindPopup('<b>'+userName+'</b><br>' + lastWaypoint[0] + ', ' + lastWaypoint[1])
+                                        .openPopup();
+
+                                    // Display user info with call button
+                                    const userInfo = document.createElement('div');
+                                    userInfo.classList.add('user-info');
+                                    userInfo.innerHTML = `
+                                        <div class="user-name">${userName}</div>
+                                        <a class="call-button" href="tel:${userContact}">Call ${userName}</a>
+                                    `;
+                                    container.appendChild(userInfo);
+                                } else {
+                                    console.log("User document does not exist");
+                                }
+                            }).catch((error) => {
+                                console.error("Error fetching user document:", error);
+                            });
+                        });
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching locations documents: ", error);
+                });
+        }
+
+        // Automatically reload page every 50 seconds
+        setInterval(() => {
+            location.reload();
+        }, 50000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Waypoint Route Maps</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background-color: #110434;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .map-container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .map-label {
+            text-align: center;
+            padding: 10px;
+            font-size: 1.2em;
+            background-color: #2196f3;
+            color: white;
+            margin-bottom: 0;
+        }
+        .map {
+            height: 300px;
+        }
+        .no-active-users {
+            text-align: center;
+            width: 100%;
+            font-size: 1.5em;
+            color: #616161;
+        }
+        .user-info {
+            padding: 10px;
+            background-color: #424242;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
+        .user-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        .call-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 5px;
+            transition: background-color 0.3s;
+        }
+        .call-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Reload the page every 30 seconds
+        setInterval(function(){
+            window.location.reload(1);
+        }, 30000);
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCYAHsIh1kt-B99XiPTZYNC85z61ziFtL4",
+            authDomain: "techkotapolice-9bfa6.firebaseapp.com",
+            databaseURL: "https://techkotapolice-9bfa6-default-rtdb.firebaseio.com",
+            projectId: "techkotapolice-9bfa6",
+            storageBucket: "techkotapolice-9bfa6.appspot.com",
+            messagingSenderId: "816176697788",
+            appId: "1:816176697788:web:17bb6e4f488051062adbb9",
+            measurementId: "G-QYZFQ1W4QQ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Fetch active locations from Firestore
+        db.collection("locations").where("active", "==", true).get().then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                // Display "No Active Users" message if no active documents
+                const noActiveUsersMessage = document.createElement('div');
+                noActiveUsersMessage.classList.add('no-active-users');
+                noActiveUsersMessage.textContent = "No Active Users";
+                document.body.appendChild(noActiveUsersMessage);
+            } else {
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const userId = data.user_id;
+                    const waypoints = data.waypoints.map(point => [point.latitude, point.longitude]);
+
+                    // Fetch user details
+                    db.collection("users").doc(userId).get().then((userDoc) => {
+                        if (userDoc.exists) {
+                            const userData = userDoc.data();
+                            const userName = userData.name;
+                            const userContact = userData.contact;
+
+                            // Create a new map container
+                            const container = document.createElement('div');
+                            container.classList.add('map-container');
+
+                            // Add label
+                            const label = document.createElement('div');
+                            label.classList.add('map-label');
+                            label.textContent = `User ID: ${userId}`;
+                            container.appendChild(label);
+
+                            // Add map
+                            const mapDiv = document.createElement('div');
+                            mapDiv.classList.add('map');
+                            container.appendChild(mapDiv);
+                            document.body.appendChild(container);
+
+                            // Initialize the map
+                            const map = L.map(mapDiv).setView(waypoints[0], 13);
+                            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            }).addTo(map);
+
+                            // Add the route
+                            const polyline = L.polyline(waypoints, { color: 'blue' }).addTo(map);
+                            map.fitBounds(polyline.getBounds());
+
+                            // Add a marker at the last waypoint
+                            const lastWaypoint = waypoints[waypoints.length - 1];
+                            L.marker(lastWaypoint).addTo(map)
+                                .bindPopup('<b>'+userId+'</b><br>' + lastWaypoint[0] + ', ' + lastWaypoint[1])
+                                .openPopup();
+
+                            // Display user info with call button
+                            const userInfo = document.createElement('div');
+                            userInfo.classList.add('user-info');
+                            userInfo.innerHTML = `
+                                <div class="user-name">${userName}</div>
+                                <a class="call-button" href="tel:${userContact}">Call ${userName}</a>
+                            `;
+                            container.appendChild(userInfo);
+                        } else {
+                            console.log("User document does not exist");
+                        }
+                    }).catch((error) => {
+                        console.error("Error fetching user document:", error);
+                    });
+                });
+            }
+        }).catch((error) => {
+            console.error("Error fetching locations documents: ", error);
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
